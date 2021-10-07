@@ -24,10 +24,10 @@ namespace EShop.Service.Interfaces
         /// <returns>A list of entities</returns>
         Task<List<T>> GetAllAsync();
 
-        ///// <summary>
-        ///// Get a entity by its id
-        ///// </summary>
-        ///// <returns>A entity</returns>
-        //Task GetById(object id);
+        /// <summary>
+        /// Get a entity by its id
+        /// </summary>
+        /// <returns>A entity</returns>
+        Task<T> GetById(object id);
     }
 }

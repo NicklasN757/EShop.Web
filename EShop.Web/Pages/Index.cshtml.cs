@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using EShop.Repository.Entities;
+using EShop.Repository.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using System;
@@ -10,16 +12,21 @@ namespace EShop.Web.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly ILogger<IndexModel> _logger;
+        private readonly IUserRepository _userRepository;
 
-        public IndexModel(ILogger<IndexModel> logger)
+        public IndexModel(IUserRepository userRepository)
         {
-            _logger = logger;
+            _userRepository = userRepository;
         }
 
-        public void OnGet()
-        {
+        [BindProperty]
+        public User TestUser { get; set; }
 
+        public async Task<IActionResult> OnGet()
+        {
+            TestUser = await _userRepository.GetByIdAsync(1);
+
+            return Page();
         }
     }
 }

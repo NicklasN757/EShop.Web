@@ -4,8 +4,6 @@ using Service.Services;
 using Service.Services.Base;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace EShop.Service.Services
@@ -51,7 +49,26 @@ namespace EShop.Service.Services
             {
                 LogError($"Failed to fetch a list of {_entityName}s.", ex);
 
-                return new List<T>();
+                return null;
+            }
+        }
+
+        //Calls and logs the "GetById" function from the GenericRepository
+        public async Task<T> GetById(object id)
+        {
+            try
+            {
+                T tmpEntity = _mappingService._mapper.Map<T>(await _genericRepository.GetByIdAsync(id));
+
+                LogInformation($"Successfully fetched the {_entityName} with the giving id: {id}");
+
+                return tmpEntity;
+            }
+            catch (Exception ex)
+            {
+                LogError($"Failed to fetch the {_entityName} with the giving id: {id}.", ex);
+
+                return null;
             }
         }
 
