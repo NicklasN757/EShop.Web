@@ -53,12 +53,12 @@ namespace EShop.Service.Services
             }
         }
 
-        //Calls and logs the "GetById" function from the GenericRepository
-        public async Task<T> GetById(object id)
+        //Calls and logs the "GetByIdAsync" function from the GenericRepository
+        public async Task<T> GetByIdAsync(object id)
         {
             try
             {
-                T tmpEntity = _mappingService._mapper.Map<T>(await _genericRepository.GetByIdAsync(id));
+                T tmpEntity = _mappingService._mapper.Map<T>( await _genericRepository.GetByIdAsync(id));
 
                 LogInformation($"Successfully fetched the {_entityName} with the giving id: {id}");
 

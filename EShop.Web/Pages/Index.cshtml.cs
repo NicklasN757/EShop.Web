@@ -1,30 +1,26 @@
-﻿using EShop.Repository.Entities;
-using EShop.Repository.Interfaces;
+﻿using EShop.Service.DataTransferObjects;
+using EShop.Service.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace EShop.Web.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IUserService _userService;
 
-        public IndexModel(IUserRepository userRepository)
+        public IndexModel(IUserService userService)
         {
-            _userRepository = userRepository;
+            _userService = userService;
         }
 
         [BindProperty]
-        public User TestUser { get; set; }
+        public UserDTO TestUser { get; set; }
 
         public async Task<IActionResult> OnGet()
         {
-            TestUser = await _userRepository.GetByIdAsync(1);
+            TestUser = await _userService.GetByIdAsync(1);
 
             return Page();
         }

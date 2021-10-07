@@ -28,6 +28,6 @@ namespace EShop.Service.Interfaces
         /// Get a entity by its id
         /// </summary>
         /// <returns>A entity</returns>
-        Task<T> GetById(object id);
+        Task<T> GetByIdAsync(object id);
     }
 }
