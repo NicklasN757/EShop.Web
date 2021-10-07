@@ -1,4 +1,6 @@
 ﻿using System;
+using EShop.Repository.Entities;
+using EShop.Service.DataTransferObjects;
 using Service.Services.Base;
 
 namespace Service.Services
@@ -17,9 +19,25 @@ namespace Service.Services
             AutoMapper.MapperConfiguration mapperConfig = new AutoMapper.MapperConfiguration(cfg =>
             {
                 #region Class Mappings
-                // ClassName
-                //cfg.CreateMap<class, classDTO>();
-                //cfg.CreateMap<classDTO, class>();
+                // Order
+                cfg.CreateMap<Order, OrderDTO>();
+                cfg.CreateMap<OrderDTO, Order>();
+
+                // Product
+                cfg.CreateMap<Product, ProductDTO>();
+                cfg.CreateMap<ProductDTO, Product>();
+
+                // ShoppingCart
+                cfg.CreateMap<ShoppingCart, ShoppingCartDTO>();
+                cfg.CreateMap<ShoppingCartDTO, ShoppingCart>();
+
+                // User
+                cfg.CreateMap<User, UserDTO>();
+                cfg.CreateMap<UserDTO, User>();
+
+                // UserInformation
+                cfg.CreateMap<UserInformation, UserInformationDTO>();
+                cfg.CreateMap<UserInformationDTO, UserInformation>();
                 #endregion
             });
 
