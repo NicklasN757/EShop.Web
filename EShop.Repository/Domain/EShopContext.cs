@@ -16,11 +16,11 @@ namespace EShop.Repository.Domain
 
         public EShopContext(DbContextOptions<EShopContext> optionsBuilder) : base(optionsBuilder) { }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer("Server = (localdb)\\mssqllocaldb; Database = EShopDb; Trusted_Connection = True; ")
-            .EnableSensitiveDataLogging(true);
-        }
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    optionsBuilder.UseSqlServer("Server = (localdb)\\mssqllocaldb; Database = EShopDb; Trusted_Connection = True; ")
+        //    .EnableSensitiveDataLogging(true);
+        //}
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -101,11 +101,12 @@ namespace EShop.Repository.Domain
                 );
             #endregion
         }
-
+        #region Table Creations
         public DbSet<Order> Orders { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<ShoppingCart> ShoppingCarts { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<UserInformation> UserInformations { get; set; }
+        #endregion
     }
 }

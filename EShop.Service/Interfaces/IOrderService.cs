@@ -2,7 +2,7 @@
 
 namespace EShop.Service.Interfaces
 {
-    public interface IOrderServices : IGenericService<OrderDTO>
+    public interface IOrderService : IGenericService<OrderDTO>
     {
         // Nothing to see here please move on or ...
     }

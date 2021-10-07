@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace EShop.Repository.Repositories
 {
-    public class UserinformationRepository : GenericRepository<UserInformation>, IUserInformationRepository
+    public class UserInformationRepository : GenericRepository<UserInformation>, IUserInformationRepository
     {
         private readonly EShopContext _dbContext;
-        public UserinformationRepository(EShopContext eShopContext) : base(eShopContext) => _dbContext = eShopContext;
+        public UserInformationRepository(EShopContext eShopContext) : base(eShopContext) => _dbContext = eShopContext;
     }
 }

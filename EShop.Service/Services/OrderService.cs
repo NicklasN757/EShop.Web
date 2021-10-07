@@ -6,7 +6,7 @@ using Service.Services;
 
 namespace EShop.Service.Services
 {
-    public class OrderService : GenericService<OrderDTO, IOrderRepository, Order>, IOrderServices
+    public class OrderService : GenericService<OrderDTO, IOrderRepository, Order>, IOrderService
     {
         private readonly MappingService _mappingService;
         private readonly IOrderRepository _orderRepository;
