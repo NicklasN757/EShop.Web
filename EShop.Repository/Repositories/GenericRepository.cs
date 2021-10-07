@@ -21,6 +21,9 @@ namespace EShop.Repository.Repositories
         //Gets all entities from a database table
         public async Task<List<T>> GetAllAsync() => await _dbContext.Set<T>().AsNoTracking().ToListAsync();
 
+        //Gets a single entity from the database table
+        public async Task<T> GetByIdAsync(object id) => await _dbContext.Set<T>().FindAsync(id);
+
         //Updates a entity from the database
         public async Task UpdateAsync(T entity)
         {
