@@ -21,5 +21,6 @@ namespace EShop.Repository.Entities
         //Navigations Properties
         public List<Product> Products { get; set; }
         public User User { get; set; }
+        public Order Order { get; set; }
     }
 }

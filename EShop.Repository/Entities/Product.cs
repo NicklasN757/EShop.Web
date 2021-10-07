@@ -10,6 +10,9 @@ namespace EShop.Repository.Entities
         [Required]
         public string Name { get; set; }
 
+        [Required]
+        public double Price { get; set; }
+
         public string ImgUrl { get; set; }
 
         [Required]

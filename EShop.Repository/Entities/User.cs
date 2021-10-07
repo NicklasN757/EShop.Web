@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace EShop.Repository.Entities
 {
@@ -6,6 +7,9 @@ namespace EShop.Repository.Entities
     {
         [Required]
         public int UserId { get; set; }
+
+        [Required]
+        public string Username { get; set; }
 
         [Required]
         public int Pin { get; set; }
@@ -17,6 +21,6 @@ namespace EShop.Repository.Entities
 
         //Navigations Properties
         public UserInformation UserInformation { get; set; }
-        public ShoppingCart ShoppingCart { get; set; }
+        public List<ShoppingCart> ShoppingCarts { get; set; }
     }
 }
