@@ -1,9 +1,10 @@
 ﻿using EShop.Service.DataTransferObjects;
+using System.Threading.Tasks;
 
 namespace EShop.Service.Interfaces
 {
     public interface IUserService : IGenericService<UserDTO>
     {
-        // Nothing to see here please move on or ...
+        public Task<UserDTO> GetUserByIdWithUserInformation(int id);
     }
 }

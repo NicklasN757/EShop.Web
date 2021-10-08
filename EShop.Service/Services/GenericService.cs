@@ -12,7 +12,7 @@ namespace EShop.Service.Services
     {
         private readonly I _genericRepository;
         private readonly MappingService _mappingService;
-        private readonly string _entityName = typeof(E).ToString().Replace("Prototype.Repository.Entities.", "");
+        private readonly string _entityName = typeof(E).ToString().Replace("EShop.Repository.Entities.", "");
 
         public GenericService(MappingService mappingService, I genericRepository)
         {

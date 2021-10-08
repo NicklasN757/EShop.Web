@@ -9,10 +9,23 @@ namespace EShop.Web.Pages
     public class IndexModel : PageModel
     {
         private readonly IUserService _userService;
+        private readonly IOrderService _orderService;
+        private readonly IProductService _productService;
+        private readonly IShoppingCartService _shoppingCartService;
+        private readonly IUserInformationService _userInformationService;
 
-        public IndexModel(IUserService userService)
+        public IndexModel(
+            IUserService userService, 
+            IOrderService orderService, 
+            IProductService productService, 
+            IShoppingCartService shoppingCartService, 
+            IUserInformationService userInformationService)
         {
             _userService = userService;
+            _orderService = orderService;
+            _productService = productService;
+            _shoppingCartService = shoppingCartService;
+            _userInformationService = userInformationService;
         }
 
         [BindProperty]
