@@ -64,12 +64,12 @@ namespace Tester
         //    testUser.Username = "TestUserChanged";
         //}
 
-        [Fact]
-        public async void TestUserService_GetByIdWithUserInformation()
-        {
-            UserDTO userDTO = await _userService.GetUserByIdWithUserInformation(1);
+        //[Fact]
+        //public async void TestUserService_GetByIdWithUserInformation()
+        //{
+        //    UserDTO userDTO = await _userService.GetUserByIdWithUserInformation(1);
 
-            userDTO.UserInformation.FullName.Should().Be("Nicklas M Nielsen");
-        }
+        //    userDTO.UserInformation.FullName.Should().Be("Nicklas M Nielsen");
+        //}
     }
 }
