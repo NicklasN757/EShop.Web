@@ -4,7 +4,17 @@
     ViewData["Title"] = "Home page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">@Model.TestUser.Username</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="text-center container">
+    <form class="row input-group">
+        <input type="text" class="form-control" />
+        <button type="submit" class="input-group-append btn btn-primary">Search</button>
+    </form>
+    <div class="row">
+        @foreach (ProductDTO product in Model.ProductDTOs)
+        {
+            <div class="col-3 m-auto">
+                <partial name="_ProductCard" model="product" />
+            </div>
+        }
+    </div>
 </div>

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EShop.Repository.Migrations
 {
     [DbContext(typeof(EShopContext))]
-    [Migration("20211007145908_init")]
-    partial class init
+    [Migration("20211013120923_linkfix")]
+    partial class linkfix
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -57,7 +57,7 @@ namespace EShop.Repository.Migrations
                             OrderId = 1,
                             FK_ShooppingCartId = 1,
                             FK_UserInformation = 1,
-                            OrderDate = new DateTime(2021, 10, 7, 16, 59, 8, 151, DateTimeKind.Local).AddTicks(8831)
+                            OrderDate = new DateTime(2021, 10, 13, 14, 9, 22, 594, DateTimeKind.Local).AddTicks(7657)
                         });
                 });
 
@@ -99,6 +99,7 @@ namespace EShop.Repository.Migrations
                         new
                         {
                             ProductId = 1,
+                            ImgUrl = "product_1.jpg",
                             InStock = false,
                             Name = "Assassin´s Creed Valhalla",
                             Price = 59.950000000000003,
@@ -107,6 +108,7 @@ namespace EShop.Repository.Migrations
                         new
                         {
                             ProductId = 2,
+                            ImgUrl = "product_2.jpg",
                             InStock = false,
                             Name = "Anno 1800",
                             Price = 45.0,
@@ -115,6 +117,7 @@ namespace EShop.Repository.Migrations
                         new
                         {
                             ProductId = 3,
+                            ImgUrl = "product_3.jpg",
                             InStock = false,
                             Name = "Watch Dogs: Legion",
                             Price = 50.0,
@@ -123,6 +126,7 @@ namespace EShop.Repository.Migrations
                         new
                         {
                             ProductId = 4,
+                            ImgUrl = "product_4.jpg",
                             InStock = false,
                             Name = "Assassin´s Creed Rogue",
                             Price = 11.949999999999999,
@@ -131,6 +135,7 @@ namespace EShop.Repository.Migrations
                         new
                         {
                             ProductId = 5,
+                            ImgUrl = "product_5.jpg",
                             InStock = false,
                             Name = "Tom Clancy´s Rainbow Six Siege",
                             Price = 24.949999999999999,

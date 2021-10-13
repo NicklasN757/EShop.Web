@@ -33,11 +33,11 @@ namespace EShop.Repository.Domain
 
             //Data
             modelBuilder.Entity<Product>().HasData(
-                new Product { ProductId = 1, Name = "Assassin´s Creed Valhalla", Stock = 200, Price = 59.95 },
-                new Product { ProductId = 2, Name = "Anno 1800", Stock = 150, Price = 45.00 },
-                new Product { ProductId = 3, Name = "Watch Dogs: Legion", Stock = 100, Price = 50.00 },
-                new Product { ProductId = 4, Name = "Assassin´s Creed Rogue", Stock = 15, Price = 11.95},
-                new Product { ProductId = 5, Name = "Tom Clancy´s Rainbow Six Siege", Stock = 1050, Price = 24.95}
+                new Product { ProductId = 1, Name = "Assassin´s Creed Valhalla", Stock = 200, Price = 59.95, ImgUrl = "product_1.jpg" },
+                new Product { ProductId = 2, Name = "Anno 1800", Stock = 150, Price = 45.00, ImgUrl = "product_2.jpg" },
+                new Product { ProductId = 3, Name = "Watch Dogs: Legion", Stock = 100, Price = 50.00, ImgUrl = "product_3.jpg" },
+                new Product { ProductId = 4, Name = "Assassin´s Creed Rogue", Stock = 15, Price = 11.95, ImgUrl = "product_4.jpg" },
+                new Product { ProductId = 5, Name = "Tom Clancy´s Rainbow Six Siege", Stock = 1050, Price = 24.95, ImgUrl = "product_5.jpg" }
                 );
             #endregion
 

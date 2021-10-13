@@ -2,6 +2,7 @@
 using EShop.Service.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace EShop.Web.Pages
@@ -31,9 +32,13 @@ namespace EShop.Web.Pages
         [BindProperty]
         public UserDTO TestUser { get; set; }
 
+        public List<ProductDTO> ProductDTOs { get; set; }
+
         public async Task<IActionResult> OnGet()
         {
             TestUser = await _userService.GetByIdAsync(1);
+
+            ProductDTOs = await _productService.GetAllAsync();
 
             return Page();
         }

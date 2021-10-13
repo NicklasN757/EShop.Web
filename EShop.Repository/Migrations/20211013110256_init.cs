@@ -122,11 +122,11 @@ namespace EShop.Repository.Migrations
                 columns: new[] { "ProductId", "ImgUrl", "Name", "Price", "ShoppingCartId", "Stock" },
                 values: new object[,]
                 {
-                    { 1, null, "Assassin´s Creed Valhalla", 59.950000000000003, null, 200 },
-                    { 2, null, "Anno 1800", 45.0, null, 150 },
-                    { 3, null, "Watch Dogs: Legion", 50.0, null, 100 },
-                    { 4, null, "Assassin´s Creed Rogue", 11.949999999999999, null, 15 },
-                    { 5, null, "Tom Clancy´s Rainbow Six Siege", 24.949999999999999, null, 1050 }
+                    { 1, "~/Img/product_1.jpg", "Assassin´s Creed Valhalla", 59.950000000000003, null, 200 },
+                    { 2, "~/Img/product_2.jpg", "Anno 1800", 45.0, null, 150 },
+                    { 3, "~/Img/product_3.jpg", "Watch Dogs: Legion", 50.0, null, 100 },
+                    { 4, "~/Img/product_4.jpg", "Assassin´s Creed Rogue", 11.949999999999999, null, 15 },
+                    { 5, "~/Img/product_5.jpg", "Tom Clancy´s Rainbow Six Siege", 24.949999999999999, null, 1050 }
                 });
 
             migrationBuilder.InsertData(
@@ -166,7 +166,7 @@ namespace EShop.Repository.Migrations
             migrationBuilder.InsertData(
                 table: "Orders",
                 columns: new[] { "OrderId", "FK_ShooppingCartId", "FK_UserInformation", "OrderDate", "UserInformationUserId" },
-                values: new object[] { 1, 1, 1, new DateTime(2021, 10, 7, 16, 59, 8, 151, DateTimeKind.Local).AddTicks(8831), null });
+                values: new object[] { 1, 1, 1, new DateTime(2021, 10, 13, 13, 2, 55, 924, DateTimeKind.Local).AddTicks(6904), null });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Orders_FK_ShooppingCartId",
