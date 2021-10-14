@@ -55,7 +55,7 @@ namespace EShop.Repository.Migrations
                             OrderId = 1,
                             FK_ShooppingCartId = 1,
                             FK_UserInformation = 1,
-                            OrderDate = new DateTime(2021, 10, 13, 14, 9, 22, 594, DateTimeKind.Local).AddTicks(7657)
+                            OrderDate = new DateTime(2021, 10, 14, 11, 13, 5, 400, DateTimeKind.Local).AddTicks(7325)
                         });
                 });
 
@@ -65,6 +65,9 @@ namespace EShop.Repository.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ImgUrl")
                         .HasColumnType("nvarchar(max)");
@@ -97,6 +100,7 @@ namespace EShop.Repository.Migrations
                         new
                         {
                             ProductId = 1,
+                            Description = "Become Eivor, a legendary Viking raider on a quest for glory. Explore England's Dark Ages as you raid your enemies, grow your settlement, and build your political power.",
                             ImgUrl = "product_1.jpg",
                             InStock = false,
                             Name = "Assassin´s Creed Valhalla",
@@ -106,6 +110,7 @@ namespace EShop.Repository.Migrations
                         new
                         {
                             ProductId = 2,
+                            Description = "Experience one of the most exciting and fast-changing periods of all time. Discover new technologies, continents, and societies. Build a new world in your image! All the ingredients are gathered for a memorable Anno experience. Travel throughout the world during the Industrial Revolution to write your own story!",
                             ImgUrl = "product_2.jpg",
                             InStock = false,
                             Name = "Anno 1800",
@@ -115,6 +120,7 @@ namespace EShop.Repository.Migrations
                         new
                         {
                             ProductId = 3,
+                            Description = "Build a resistance from virtually anyone you see as you hack, infiltrate, and fight to take back a near-future London that is facing its downfall.",
                             ImgUrl = "product_3.jpg",
                             InStock = false,
                             Name = "Watch Dogs: Legion",
@@ -124,6 +130,7 @@ namespace EShop.Repository.Migrations
                         new
                         {
                             ProductId = 4,
+                            Description = "18th century, North America. Amidst the chaos and violence of the French and Indian War, Shay Patrick Cormac, a fearless young member of the Brotherhood of Assassin’s, undergoes a dark transformation that will forever shape the future of the American colonies.",
                             ImgUrl = "product_4.jpg",
                             InStock = false,
                             Name = "Assassin´s Creed Rogue",
@@ -133,6 +140,7 @@ namespace EShop.Repository.Migrations
                         new
                         {
                             ProductId = 5,
+                            Description = "Squad up and breach in to explosive 5v5 PVP action. Tom Clancy's Rainbow Six Siege features a huge roster of specialized operators, each with game-changing gadgets to help you lead your team to victory.",
                             ImgUrl = "product_5.jpg",
                             InStock = false,
                             Name = "Tom Clancy´s Rainbow Six Siege",

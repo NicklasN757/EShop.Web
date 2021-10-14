@@ -42,5 +42,10 @@ namespace EShop.Web.Pages
 
             return Page();
         }
+
+        public async Task<IActionResult> OnPostTest()
+        {
+            return Page();
+        }
     }
 }

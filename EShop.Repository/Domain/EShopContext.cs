@@ -33,12 +33,21 @@ namespace EShop.Repository.Domain
 
             //Data
             modelBuilder.Entity<Product>().HasData(
-                new Product { ProductId = 1, Name = "Assassin´s Creed Valhalla", Stock = 200, Price = 59.95, ImgUrl = "product_1.jpg" },
-                new Product { ProductId = 2, Name = "Anno 1800", Stock = 150, Price = 45.00, ImgUrl = "product_2.jpg" },
-                new Product { ProductId = 3, Name = "Watch Dogs: Legion", Stock = 100, Price = 50.00, ImgUrl = "product_3.jpg" },
-                new Product { ProductId = 4, Name = "Assassin´s Creed Rogue", Stock = 15, Price = 11.95, ImgUrl = "product_4.jpg" },
-                new Product { ProductId = 5, Name = "Tom Clancy´s Rainbow Six Siege", Stock = 1050, Price = 24.95, ImgUrl = "product_5.jpg" }
+                new Product { ProductId = 1, Name = "Assassin´s Creed Valhalla", Stock = 200, Price = 59.95, ImgUrl = "product_1.jpg", Description = "Become Eivor, a legendary Viking raider on a quest for glory. Explore England's Dark Ages as you raid your enemies, grow your settlement, and build your political power." },
+                new Product { ProductId = 2, Name = "Anno 1800", Stock = 150, Price = 45.00, ImgUrl = "product_2.jpg", Description = "Experience one of the most exciting and fast-changing periods of all time. Discover new technologies, continents, and societies. Build a new world in your image! All the ingredients are gathered for a memorable Anno experience. Travel throughout the world during the Industrial Revolution to write your own story!" },
+                new Product { ProductId = 3, Name = "Watch Dogs: Legion", Stock = 100, Price = 50.00, ImgUrl = "product_3.jpg", Description = "Build a resistance from virtually anyone you see as you hack, infiltrate, and fight to take back a near-future London that is facing its downfall." },
+                new Product { ProductId = 4, Name = "Assassin´s Creed Rogue", Stock = 15, Price = 11.95, ImgUrl = "product_4.jpg", Description = "18th century, North America. Amidst the chaos and violence of the French and Indian War, Shay Patrick Cormac, a fearless young member of the Brotherhood of Assassin’s, undergoes a dark transformation that will forever shape the future of the American colonies." },
+                new Product { ProductId = 5, Name = "Tom Clancy´s Rainbow Six Siege", Stock = 1050, Price = 24.95, ImgUrl = "product_5.jpg", Description = "Squad up and breach in to explosive 5v5 PVP action. Tom Clancy's Rainbow Six Siege features a huge roster of specialized operators, each with game-changing gadgets to help you lead your team to victory." }
                 );
+            #endregion
+
+            #region PriceOffer
+            //Keys And Relations
+            modelBuilder.Entity<PriceOffer>().HasKey(po => po.ProductId);
+
+            //Property
+
+            //Data
             #endregion
 
             #region User table

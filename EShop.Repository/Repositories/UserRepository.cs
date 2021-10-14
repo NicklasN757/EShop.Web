@@ -2,10 +2,6 @@
 using EShop.Repository.Entities;
 using EShop.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace EShop.Repository.Repositories
@@ -15,6 +11,7 @@ namespace EShop.Repository.Repositories
         private readonly EShopContext _dbContext;
         public UserRepository(EShopContext eShopContext) : base(eShopContext) => _dbContext = eShopContext;
 
+        //Gets a user with all the user information
         public async Task<User> GetUserByIdWithUserInformation(int id) => await _dbContext.Users.AsNoTracking().Include(u => u.UserInformation).SingleAsync(u => u.UserId == id);
     }
 }
