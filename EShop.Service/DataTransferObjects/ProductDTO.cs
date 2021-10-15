@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace EShop.Service.DataTransferObjects
+﻿namespace EShop.Service.DataTransferObjects
 {
     public class ProductDTO
     {
@@ -26,5 +20,6 @@ namespace EShop.Service.DataTransferObjects
 
         //Navigations Properties
         public ShoppingCartDTO ShoppingCart { get; set; }
+        public PriceOfferDTO PriceOffer { get; set; }
     }
 }

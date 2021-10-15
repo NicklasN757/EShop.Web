@@ -27,6 +27,10 @@ namespace Service.Services
                 cfg.CreateMap<Product, ProductDTO>();
                 cfg.CreateMap<ProductDTO, Product>();
 
+                // PriceOffer
+                cfg.CreateMap<PriceOffer, PriceOfferDTO>();
+                cfg.CreateMap<PriceOfferDTO, PriceOffer>();
+
                 // ShoppingCart
                 cfg.CreateMap<ShoppingCart, ShoppingCartDTO>();
                 cfg.CreateMap<ShoppingCartDTO, ShoppingCart>();

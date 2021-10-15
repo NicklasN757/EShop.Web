@@ -18,16 +18,12 @@ namespace EShop.Web.Pages
 
         public List<ProductDTO> ProductDTOs { get; set; }
 
-        public async Task<IActionResult> OnGetSeach(string SeachString)
-        {
-            ProductDTOs = await _productService.GetAllProductsBySeachAsync(SeachString);
-
-            return Page();
-        }
+        [BindProperty(SupportsGet = true)]
+        public string SeachString { get; set; }
 
         public async Task<IActionResult> OnGet()
         {
-            ProductDTOs = await _productService.GetAllAsync();
+            ProductDTOs = await _productService.GetAllProductsBySeachAsync(SeachString);
 
             return Page();
         }

@@ -1,4 +1,4 @@
-﻿@page   "{SeachString?}"
+﻿@page  
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
@@ -6,15 +6,18 @@
 
 <div class="text-center container">
     <form class="row input-group" method="get" asp-page-handler="Seach">
-        <input type="text" class="form-control" />
+        <input type="text" class="form-control" asp-for="@Model.SeachString"/>
         <button type="submit" class="input-group-append btn btn-primary">Search</button>
     </form>
     <div class="row">
-        @foreach (ProductDTO product in Model.ProductDTOs)
+        @if (Model.ProductDTOs.Count > 0)
         {
-            <div class="col-3 mb-3 mt-3" style="max-height: 50rem">
-                <partial name="_ProductCard" model="product" />
-            </div>
+            @foreach (ProductDTO product in Model.ProductDTOs)
+            {
+                <div class="col-3 mb-3 mt-3" style="max-height: 50rem">
+                    <partial name="_ProductCard" model="product" />
+                </div>
+            }
         }
     </div>
 </div>

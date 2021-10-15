@@ -15,9 +15,9 @@ namespace EShop.Repository.Repositories
         private readonly EShopContext _dbContext;
         public ProductRepository(EShopContext eShopContext) : base(eShopContext) => _dbContext = eShopContext;
 
-        public async Task<List<Product>> GetAllProductsBySeachAsync(string seachString = "")
+        public async Task<List<Product>> GetAllProductsBySeachAsync(string seachString = null)
         {
-            if (seachString == "")
+            if (seachString == null)
             {
                 return await _dbContext.Products
                     .AsNoTracking()
