@@ -1,9 +1,11 @@
 ﻿using EShop.Service.DataTransferObjects;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace EShop.Service.Interfaces
 {
     public interface IProductService : IGenericService<ProductDTO>
     {
-        // Nothing to see here please move on or ...
+        public Task<List<ProductDTO>> GetAllProductsBySeachAsync(string seachString);
     }
 }

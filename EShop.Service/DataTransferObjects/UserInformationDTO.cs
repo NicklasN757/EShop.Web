@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace EShop.Service.DataTransferObjects
 {
@@ -17,8 +13,6 @@ namespace EShop.Service.DataTransferObjects
         public string Adress { get; set; }
 
         public string EMail { get; set; }
-
-        //Foreign keys
 
         //Navigations Properties
         public UserDTO User { get; set; }

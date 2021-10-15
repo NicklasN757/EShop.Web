@@ -1,12 +1,6 @@
 ﻿using EShop.Repository.Entities;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EShop.Repository.Domain
 {
@@ -44,10 +38,14 @@ namespace EShop.Repository.Domain
             #region PriceOffer
             //Keys And Relations
             modelBuilder.Entity<PriceOffer>().HasKey(po => po.ProductId);
+            modelBuilder.Entity<PriceOffer>().HasOne(po => po.Product).WithOne(po => po.PriceOffer).HasForeignKey<PriceOffer>(po => po.ProductId);
 
             //Property
 
             //Data
+            modelBuilder.Entity<PriceOffer>().HasData(
+                new PriceOffer { ProductId = 3, NewPrice = 25, OfferReason = "Alt for mange fejl", DateStarted = DateTime.Now, DateEnding = DateTime.Now.AddDays(365) }
+                );
             #endregion
 
             #region User table

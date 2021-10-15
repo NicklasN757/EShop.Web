@@ -3,6 +3,9 @@ using EShop.Repository.Interfaces;
 using EShop.Service.DataTransferObjects;
 using EShop.Service.Interfaces;
 using Service.Services;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace EShop.Service.Services
 {
@@ -15,6 +18,20 @@ namespace EShop.Service.Services
         {
             _mappingService = mappingService;
             _productRepository = productRepository;
+        }
+
+        public async Task<List<ProductDTO>> GetAllProductsBySeachAsync(string seachString)
+        {
+            try
+            {
+                List<ProductDTO> productDTOs =  _mappingService._mapper.Map<List<ProductDTO>>(_productRepository.GetAllProductsBySeachAsync(seachString));
+
+                return productDTOs;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
     }
 }

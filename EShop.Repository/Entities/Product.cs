@@ -27,5 +27,6 @@ namespace EShop.Repository.Entities
 
         //Navigations Properties
         public ShoppingCart ShoppingCart { get; set; }
+        public PriceOffer PriceOffer { get; set; }
     }
 }

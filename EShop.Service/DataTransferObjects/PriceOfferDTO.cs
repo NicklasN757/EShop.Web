@@ -1,26 +1,20 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
 
-namespace EShop.Repository.Entities
+namespace EShop.Service.DataTransferObjects
 {
-    public class PriceOffer
+    public class PriceOfferDTO
     {
-        [Required]
         public int ProductId { get; set; }
 
-        [Required]
         public double NewPrice { get; set; }
 
-        [Required]
         public string OfferReason { get; set; }
 
-        [Required]
         public DateTime DateStarted { get; set; }
 
-        [Required]
         public DateTime DateEnding { get; set; }
 
         //Navigations Properties
-        public Product Product { get; set; }
+        public ProductDTO Product { get; set; }
     }
 }

@@ -1,9 +1,11 @@
 ﻿using EShop.Repository.Entities;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace EShop.Repository.Interfaces
 {
     public interface IProductRepository : IGenericRepository<Product>
     {
-        // Nothing to see here please move on or ...
+        public Task<List<Product>> GetAllProductsBySeachAsync(string seachString);
     }
 }
