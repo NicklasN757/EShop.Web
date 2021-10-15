@@ -1,11 +1,11 @@
-﻿@page
+﻿@page   "{SeachString?}"
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
 }
 
 <div class="text-center container">
-    <form class="row input-group">
+    <form class="row input-group" method="get" asp-page-handler="Seach">
         <input type="text" class="form-control" />
         <button type="submit" class="input-group-append btn btn-primary">Search</button>
     </form>
