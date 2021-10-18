@@ -118,6 +118,27 @@ namespace EShop.Repository.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "PriceOffers",
+                columns: table => new
+                {
+                    ProductId = table.Column<int>(type: "int", nullable: false),
+                    NewPrice = table.Column<double>(type: "float", nullable: false),
+                    OfferReason = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DateStarted = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GetDate()"),
+                    DateEnding = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PriceOffers", x => x.ProductId);
+                    table.ForeignKey(
+                        name: "FK_PriceOffers_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
+                        principalColumn: "ProductId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.InsertData(
                 table: "Products",
                 columns: new[] { "ProductId", "Description", "ImgUrl", "Name", "Price", "ShoppingCartId", "Stock" },
@@ -145,6 +166,11 @@ namespace EShop.Repository.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "PriceOffers",
+                columns: new[] { "ProductId", "DateEnding", "DateStarted", "NewPrice", "OfferReason" },
+                values: new object[] { 3, new DateTime(2022, 10, 18, 8, 55, 35, 927, DateTimeKind.Local).AddTicks(8756), new DateTime(2021, 10, 18, 8, 55, 35, 925, DateTimeKind.Local).AddTicks(3522), 24.550000000000001, "Alt for mange fejl" });
+
+            migrationBuilder.InsertData(
                 table: "ShoppingCarts",
                 columns: new[] { "ShoppingCartId", "FK_Product", "FK_UserId", "IsFinished", "TotalPrice" },
                 values: new object[] { 1, 1, 1, true, 59.5 });
@@ -167,7 +193,7 @@ namespace EShop.Repository.Migrations
             migrationBuilder.InsertData(
                 table: "Orders",
                 columns: new[] { "OrderId", "FK_ShooppingCartId", "FK_UserInformation", "OrderDate", "UserInformationUserId" },
-                values: new object[] { 1, 1, 1, new DateTime(2021, 10, 14, 11, 13, 5, 400, DateTimeKind.Local).AddTicks(7325), null });
+                values: new object[] { 1, 1, 1, new DateTime(2021, 10, 18, 8, 55, 35, 933, DateTimeKind.Local).AddTicks(8476), null });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Orders_FK_ShooppingCartId",
@@ -197,10 +223,13 @@ namespace EShop.Repository.Migrations
                 name: "Orders");
 
             migrationBuilder.DropTable(
-                name: "Products");
+                name: "PriceOffers");
 
             migrationBuilder.DropTable(
                 name: "UserInformations");
+
+            migrationBuilder.DropTable(
+                name: "Products");
 
             migrationBuilder.DropTable(
                 name: "ShoppingCarts");

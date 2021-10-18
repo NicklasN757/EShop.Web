@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EShop.Repository.Migrations
 {
     [DbContext(typeof(EShopContext))]
-    [Migration("20211014091305_init")]
+    [Migration("20211018065536_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -57,7 +57,42 @@ namespace EShop.Repository.Migrations
                             OrderId = 1,
                             FK_ShooppingCartId = 1,
                             FK_UserInformation = 1,
-                            OrderDate = new DateTime(2021, 10, 14, 11, 13, 5, 400, DateTimeKind.Local).AddTicks(7325)
+                            OrderDate = new DateTime(2021, 10, 18, 8, 55, 35, 933, DateTimeKind.Local).AddTicks(8476)
+                        });
+                });
+
+            modelBuilder.Entity("EShop.Repository.Entities.PriceOffer", b =>
+                {
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DateEnding")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateStarted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GetDate()");
+
+                    b.Property<double>("NewPrice")
+                        .HasColumnType("float");
+
+                    b.Property<string>("OfferReason")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ProductId");
+
+                    b.ToTable("PriceOffers");
+
+                    b.HasData(
+                        new
+                        {
+                            ProductId = 3,
+                            DateEnding = new DateTime(2022, 10, 18, 8, 55, 35, 927, DateTimeKind.Local).AddTicks(8756),
+                            DateStarted = new DateTime(2021, 10, 18, 8, 55, 35, 925, DateTimeKind.Local).AddTicks(3522),
+                            NewPrice = 24.550000000000001,
+                            OfferReason = "Alt for mange fejl"
                         });
                 });
 
@@ -313,6 +348,17 @@ namespace EShop.Repository.Migrations
                     b.Navigation("UserInformation");
                 });
 
+            modelBuilder.Entity("EShop.Repository.Entities.PriceOffer", b =>
+                {
+                    b.HasOne("EShop.Repository.Entities.Product", "Product")
+                        .WithOne("PriceOffer")
+                        .HasForeignKey("EShop.Repository.Entities.PriceOffer", "ProductId")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("EShop.Repository.Entities.Product", b =>
                 {
                     b.HasOne("EShop.Repository.Entities.ShoppingCart", "ShoppingCart")
@@ -341,6 +387,11 @@ namespace EShop.Repository.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("EShop.Repository.Entities.Product", b =>
+                {
+                    b.Navigation("PriceOffer");
                 });
 
             modelBuilder.Entity("EShop.Repository.Entities.ShoppingCart", b =>

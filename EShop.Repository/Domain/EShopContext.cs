@@ -38,13 +38,14 @@ namespace EShop.Repository.Domain
             #region PriceOffer
             //Keys And Relations
             modelBuilder.Entity<PriceOffer>().HasKey(po => po.ProductId);
-            modelBuilder.Entity<PriceOffer>().HasOne(po => po.Product).WithOne(po => po.PriceOffer).HasForeignKey<PriceOffer>(po => po.ProductId);
+            modelBuilder.Entity<PriceOffer>().HasOne(po => po.Product).WithOne(po => po.PriceOffer).HasForeignKey<PriceOffer>(po => po.ProductId).OnDelete(DeleteBehavior.ClientCascade);
 
             //Property
+            modelBuilder.Entity<PriceOffer>().Property(po => po.DateStarted).HasDefaultValueSql("GetDate()");
 
             //Data
             modelBuilder.Entity<PriceOffer>().HasData(
-                new PriceOffer { ProductId = 3, NewPrice = 25, OfferReason = "Alt for mange fejl", DateStarted = DateTime.Now, DateEnding = DateTime.Now.AddDays(365) }
+                new PriceOffer { ProductId = 3, NewPrice = 24.55, OfferReason = "Alt for mange fejl", DateStarted = DateTime.Now, DateEnding = DateTime.Now.AddDays(365) }
                 );
             #endregion
 
@@ -114,6 +115,7 @@ namespace EShop.Repository.Domain
         public DbSet<ShoppingCart> ShoppingCarts { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<UserInformation> UserInformations { get; set; }
+        public DbSet<PriceOffer> PriceOffers { get; set; }
         #endregion
     }
 }

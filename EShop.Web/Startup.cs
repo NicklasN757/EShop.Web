@@ -12,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Service.Services;
+using System;
 
 namespace EShop.Web
 {
@@ -71,6 +72,15 @@ namespace EShop.Web
                 .UseSqlServer(_config.GetConnectionString("DefaultConnection") ?? _config.GetConnectionString("DefaultConnection")));
             }
 
+            services.AddDistributedMemoryCache();
+
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(2);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.Name = "User.Section";
+            });
+
             services.AddRazorPages();
         }
 
@@ -95,6 +105,8 @@ namespace EShop.Web
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {

@@ -24,12 +24,13 @@ namespace EShop.Service.Services
         {
             try
             {
-                List<ProductDTO> productDTOs =  _mappingService._mapper.Map<List<ProductDTO>>(_productRepository.GetAllProductsBySeachAsync(seachString));
+                List<ProductDTO> productDTOs = _mappingService._mapper.Map<List<ProductDTO>>(await _productRepository.GetAllProductsBySeachAsync(seachString));
 
                 return productDTOs;
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex);
                 return null;
             }
         }

@@ -5,6 +5,7 @@
 }
 
 <div class="text-center container">
+    <h3>@Model.WelcomeMeassage</h3>
     <form class="row input-group" method="get" asp-page-handler="Seach">
         <input type="text" class="form-control" asp-for="@Model.SeachString"/>
         <button type="submit" class="input-group-append btn btn-primary">Search</button>

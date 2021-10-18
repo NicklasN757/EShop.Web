@@ -7,6 +7,19 @@
         <h5 class="card-header p-1">@Model.Name</h5>
         <p class="card-text m-1 ">@Model.Description.Substring(0, 75)...</p>
     </div>
-    <p class="m-0">@Model.Price€</p>
-    <button type="submit" class="btn btn-success rounded-top-0">Add To Cart</button>
+    @if (Model.PriceOffer == null)
+    {
+        <p class="m-0">@Model.Price€</p>
+    }
+    else
+    {
+        <div class="row m-0">
+            <p class="m-0 p-0 col-6 text-right"><del>@Model.Price€</del>&nbsp;-&nbsp;</p>
+            <p class="m-0 p-0 col-6 text-left text-success">@Model.PriceOffer.NewPrice€</p>
+        </div>
+    }
+    <div class="row m-0 p-0">
+        <button type="submit" class="btn btn-success col-6 p-0 rounded-0 rounded-bottom rounded-left rounded-top">Buy</button>
+        <a asp-page="/Product/ProductDetails" asp-route-ProductId="@Model.ProductId" class="btn btn-primary text-white col-6 p-0 rounded-0 rounded-bottom rounded-right rounded-top">View</a>
+    </div>
 </form>

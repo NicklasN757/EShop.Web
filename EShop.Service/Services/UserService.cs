@@ -19,6 +19,7 @@ namespace EShop.Service.Services
             _userRepository = userRepository;
         }
 
+        //Calls and logs the "GetUserByIdWithUserInformation" funtion from the UserRepository
         public async Task<UserDTO> GetUserByIdWithUserInformation(int id)
         {
             try
@@ -29,7 +30,40 @@ namespace EShop.Service.Services
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex);
                 return null;
+            }
+        }
+
+        //Calls and logs the "GetUserByUsername" funtion from the UserRepository
+        public async Task<UserDTO> GetUserByUsername(string username)
+        {
+            try
+            {
+                UserDTO userDTO = _mappingService._mapper.Map<UserDTO>(await _userRepository.GetUserByUsername(username));
+
+                return userDTO;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return null;
+            }
+        }
+
+        //Calls and logs the "UserLoginCheck" funtion from the UserRepository
+        public async Task<bool> UserLoginCheck(string username, int pin)
+        {
+            try
+            {
+                bool userIsLegit = await _userRepository.UserLoginCheck(username, pin);
+
+                return userIsLegit;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return false;
             }
         }
     }
