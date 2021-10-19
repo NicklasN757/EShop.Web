@@ -7,16 +7,28 @@
     <div class="row">
         <h3>Login/Register</h3>
     </div>
-    <form method="post" asp-page-handler="Login" class="row form-group">
-        <div class="col-7 m-auto">
-            <label class="form-text">Username</label>
-            <input type="text" class="form-control border-primary" name="username" />
+    @if (Model.LoggedIn)
+    {
+        <form method="post" asp-page-handler="" class="row form-group text-center">
+            <div class="col-6 m-auto">
+                <p class="form-text">Logged in as <b class="text-primary">@Model.User.Username</b></p>
+                <button type="submit" class="btn btn-danger m-1 row form-control">Logout</button>
+            </div>
+        </form>
+    }
+    else
+    {
+        <form method="post" asp-page-handler="Login" class="row form-group">
+            <div class="col-7 m-auto">
+                <label class="form-text">Username</label>
+                <input type="text" class="form-control border-primary" name="username" />
 
-            <label class="form-text">Pin</label>
-            <input type="password" class="form-control border-primary" name="pin" />
+                <label class="form-text">Pin</label>
+                <input type="password" class="form-control border-primary" name="pin" />
 
-            <button type="submit" class="btn btn-primary form-control mt-3">Login</button>
-            <a asp-page="CreateUser" class="text-primary mt-1">Don't have a user yet, create one.</a>
-        </div>
-    </form>
+                <button type="submit" class="btn btn-primary form-control mt-3">Login</button>
+                <a asp-page="CreateUser" class="text-primary mt-1">Don't have a user yet, create one.</a>
+            </div>
+        </form>
+    }
 </div>

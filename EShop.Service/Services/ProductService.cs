@@ -20,6 +20,7 @@ namespace EShop.Service.Services
             _productRepository = productRepository;
         }
 
+        //Calls and logs the "GetAllProductsBySeachAsync" funtion from the ProductRepository
         public async Task<List<ProductDTO>> GetAllProductsBySeachAsync(string seachString)
         {
             try
@@ -27,6 +28,22 @@ namespace EShop.Service.Services
                 List<ProductDTO> productDTOs = _mappingService._mapper.Map<List<ProductDTO>>(await _productRepository.GetAllProductsBySeachAsync(seachString));
 
                 return productDTOs;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return null;
+            }
+        }
+
+        //Calls and logs the "GetProductByIdWithPriceOffer" funtion from the ProductRepository
+        public async Task<ProductDTO> GetProductByIdWithPriceOffer(int id)
+        {
+            try
+            {
+                ProductDTO productDTO = _mappingService._mapper.Map<ProductDTO>(await _productRepository.GetProductByIdWithPriceOffer(id));
+
+                return productDTO;
             }
             catch (Exception ex)
             {

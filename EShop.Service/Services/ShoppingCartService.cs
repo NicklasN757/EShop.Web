@@ -3,6 +3,8 @@ using EShop.Repository.Interfaces;
 using EShop.Service.DataTransferObjects;
 using EShop.Service.Interfaces;
 using Service.Services;
+using System;
+using System.Threading.Tasks;
 
 namespace EShop.Service.Services
 {
@@ -15,6 +17,18 @@ namespace EShop.Service.Services
         {
             _mappingService = mappingService;
             _shoppingCartRepository = shoppingCartRepository;
+        }
+
+        public async Task AddProductToShoppingCartByProductId(int productId, int shoppingCartId)
+        {
+            try
+            {
+                await _shoppingCartRepository.AddProductToShoppingCartByProductId(productId, shoppingCartId);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
         }
     }
 }

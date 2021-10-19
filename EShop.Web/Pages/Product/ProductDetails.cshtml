@@ -2,3 +2,36 @@
 @model EShop.Web.Pages.ProductDetailsModel
 @{
 }
+
+<div class="container">
+    <div class="row">
+        <h1>Product Details</h1>
+    </div>
+    <div class="row text-center">
+        <div class="col-6 border border-primary m-auto rounded">
+            <div class="row border-bottom border-primary p-1">
+                <h2 class="m-auto font-weight-bolder">@Model.Product.Name</h2>
+            </div>
+            <div class="row border-bottom border-primary bg-dark">
+                <img src="@("/Img/" + Model.Product.ImgUrl)" class="img-fluid mr-auto ml-auto m-1 border border-secondary" style="max-height:400px"/>
+            </div>
+            <div class="row text-left">
+                <p class="m-1 font-weight-bold">@Model.Product.Description</p>
+            </div>
+            <div class="row border border-primary border-right-0 border-left-0 p-1">
+                @if (Model.Product.PriceOffer == null)
+                {
+                    <h4 class="m-auto">@Model.Product.Price€</h4>
+                }
+                else
+                {
+                    <h4 class="col-6 text-right m-0 p-0"><del>@Model.Product.Price€</del>&nbsp;-&nbsp;</h4>
+                    <h4 class="col-6 text-left text-success m-0 p-0">@Model.Product.PriceOffer.NewPrice€</h4>
+                }
+            </div>
+            <div class="row">
+                <button type="submit" class="btn btn-success col-12 m-auto rounded-0 rounded-bottom rounded-left rounded-right">Add to cart</button>
+            </div>
+        </div>
+    </div>
+</div>

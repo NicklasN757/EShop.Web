@@ -2,10 +2,8 @@
 using EShop.Repository.Entities;
 using EShop.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace EShop.Repository.Repositories
@@ -15,6 +13,7 @@ namespace EShop.Repository.Repositories
         private readonly EShopContext _dbContext;
         public ProductRepository(EShopContext eShopContext) : base(eShopContext) => _dbContext = eShopContext;
 
+        //Gets a list of entities from the Products table
         public async Task<List<Product>> GetAllProductsBySeachAsync(string seachString = null)
         {
             if (seachString == null)
@@ -36,5 +35,11 @@ namespace EShop.Repository.Repositories
                     .ToListAsync();
             }
         }
+
+        //Gets a single entity from the Products table
+        public async Task<Product> GetProductByIdWithPriceOffer(int id) => await _dbContext.Products
+            .AsNoTracking()
+            .Include(p => p.PriceOffer)
+            .SingleAsync(p => p.ProductId == id);
     }
 }

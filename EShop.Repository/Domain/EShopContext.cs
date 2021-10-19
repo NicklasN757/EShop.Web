@@ -38,7 +38,7 @@ namespace EShop.Repository.Domain
             #region PriceOffer
             //Keys And Relations
             modelBuilder.Entity<PriceOffer>().HasKey(po => po.ProductId);
-            modelBuilder.Entity<PriceOffer>().HasOne(po => po.Product).WithOne(po => po.PriceOffer).HasForeignKey<PriceOffer>(po => po.ProductId).OnDelete(DeleteBehavior.ClientCascade);
+            modelBuilder.Entity<PriceOffer>().HasOne(po => po.Product).WithOne(po => po.PriceOffer).HasForeignKey<PriceOffer>(po => po.ProductId).OnDelete(DeleteBehavior.Cascade);
 
             //Property
             modelBuilder.Entity<PriceOffer>().Property(po => po.DateStarted).HasDefaultValueSql("GetDate()");
@@ -68,7 +68,7 @@ namespace EShop.Repository.Domain
             //Keys And Relations
             modelBuilder.Entity<ShoppingCart>().HasKey(sc => sc.ShoppingCartId);
             modelBuilder.Entity<ShoppingCart>().HasMany(sc => sc.Products).WithOne(p => p.ShoppingCart);
-            modelBuilder.Entity<ShoppingCart>().HasOne(sc => sc.User).WithMany(u => u.ShoppingCarts).HasForeignKey(sc => sc.FK_UserId).OnDelete(DeleteBehavior.ClientSetNull);
+            modelBuilder.Entity<ShoppingCart>().HasOne(sc => sc.User).WithMany(u => u.ShoppingCarts).HasForeignKey(sc => sc.FK_UserId).OnDelete(DeleteBehavior.SetNull);
 
             //Property
             modelBuilder.Entity<ShoppingCart>().Property(sc => sc.IsFinished).HasDefaultValue(false);
@@ -83,7 +83,7 @@ namespace EShop.Repository.Domain
             #region UserInformation table
             //Keys And Relations
             modelBuilder.Entity<UserInformation>().HasKey(ui => ui.UserId);
-            modelBuilder.Entity<UserInformation>().HasOne(ui => ui.User).WithOne(u => u.UserInformation).HasForeignKey<UserInformation>(ui => ui.UserId).OnDelete(DeleteBehavior.ClientCascade);
+            modelBuilder.Entity<UserInformation>().HasOne(ui => ui.User).WithOne(u => u.UserInformation).HasForeignKey<UserInformation>(ui => ui.UserId).OnDelete(DeleteBehavior.Cascade);
 
             //Property
 
@@ -98,7 +98,7 @@ namespace EShop.Repository.Domain
             #region Order table
             //Keys And Relations
             modelBuilder.Entity<Order>().HasKey(o => o.OrderId);
-            modelBuilder.Entity<Order>().HasOne(o => o.ShoppingCart).WithOne(sc => sc.Order).HasForeignKey<Order>(O => O.FK_ShooppingCartId).OnDelete(DeleteBehavior.ClientCascade);
+            modelBuilder.Entity<Order>().HasOne(o => o.ShoppingCart).WithOne(sc => sc.Order).HasForeignKey<Order>(O => O.FK_ShooppingCartId).OnDelete(DeleteBehavior.Cascade);
 
             //Property
             modelBuilder.Entity<Order>().Property(o => o.OrderDate).HasDefaultValueSql("GetDate()");

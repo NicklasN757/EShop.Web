@@ -18,24 +18,41 @@ namespace EShop.Web.Pages
             _userInformationService = userInformationService;
         }
 
-        [BindProperty]
+        //User
         public UserDTO User { get; set; }
+        public UserInformationDTO UserInformation { get; set; }
 
-        public void OnGet()
+        //Other
+        public bool LoggedIn { get; set; }
+
+        //Runs when Get is called
+        public async Task<IActionResult> OnGet()
         {
-            //HttpContext.Session.SetString("_Username", "NicklasN757");
+            if (HttpContext.Session.GetInt32("_UserId") == null)
+            {
+                LoggedIn = false;
+            }
+            else
+            {
+                LoggedIn = true;
 
-            //Username = HttpContext.Session.GetString("_Username");
+                int tmpId = (int)HttpContext.Session.GetInt32("_UserId");
+
+                UserInformation = await _userInformationService.GetByIdAsync(tmpId);
+                User = await _userService.GetByIdAsync(tmpId);
+            }
+            return Page();
         }
 
+        //Runs when the user is clicking on the login button
         public async Task<IActionResult> OnPostLogin(string username, int pin)
         {
             if (await _userService.UserLoginCheck(username, pin))
             {
                 UserDTO tmpUser = await _userService.GetUserByUsername(username);
 
-                string SessionUserUsername = "_Username";
-                string SessionUserId = "_UserId";
+                const string SessionUserUsername = "_Username";
+                const string SessionUserId = "_UserId";
 
                 HttpContext.Session.SetString(SessionUserUsername, tmpUser.Username);
                 HttpContext.Session.SetInt32(SessionUserId, tmpUser.UserId);

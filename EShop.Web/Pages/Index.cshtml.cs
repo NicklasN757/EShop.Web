@@ -31,9 +31,6 @@ namespace EShop.Web.Pages
 
         public async Task<IActionResult> OnGet()
         {
-            
-
-
             if (HttpContext.Session.GetInt32("_UserId") == null)
             {
                 WelcomeMeassage = "Hello and welcome to my shop.";
