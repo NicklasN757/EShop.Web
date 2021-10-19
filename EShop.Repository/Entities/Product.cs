@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace EShop.Repository.Entities
 {
@@ -26,7 +27,8 @@ namespace EShop.Repository.Entities
         //Foreign keys
 
         //Navigations Properties
-        public ShoppingCart ShoppingCart { get; set; }
+        public List<ShoppingCart> ShoppingCarts { get; set; }
         public PriceOffer PriceOffer { get; set; }
+        public List<Order> Orders { get; set; }
     }
 }

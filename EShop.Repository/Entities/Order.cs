@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace EShop.Repository.Entities
@@ -13,10 +14,12 @@ namespace EShop.Repository.Entities
 
         //Foreign keys
         public int FK_ShooppingCartId { get; set; }
-        public int FK_UserInformation { get; set; }
+        public int FK_UserInformationId { get; set; }
+        public int FK_UserId { get; set; }
 
         //Navigations Properties
-        public ShoppingCart ShoppingCart { get; set; }
         public UserInformation UserInformation { get; set; }
+        public User User { get; set; }
+        public List<Product> Products { get; set; }
     }
 }

@@ -11,9 +11,6 @@ namespace EShop.Repository.Entities
         [Required]
         public double TotalPrice { get; set; }
 
-        [Required]
-        public bool IsFinished { get; set; }
-
         //Foreign keys
         public int FK_UserId { get; set; }
         public int FK_Product { get; set; }
@@ -21,6 +18,5 @@ namespace EShop.Repository.Entities
         //Navigations Properties
         public List<Product> Products { get; set; }
         public User User { get; set; }
-        public Order Order { get; set; }
     }
 }

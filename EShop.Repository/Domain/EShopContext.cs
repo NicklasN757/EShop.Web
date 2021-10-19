@@ -10,12 +10,6 @@ namespace EShop.Repository.Domain
 
         public EShopContext(DbContextOptions<EShopContext> optionsBuilder) : base(optionsBuilder) { }
 
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    optionsBuilder.UseSqlServer("Server = (localdb)\\mssqllocaldb; Database = EShopDb; Trusted_Connection = True; ")
-        //    .EnableSensitiveDataLogging(true);
-        //}
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             #region Product table
@@ -67,15 +61,15 @@ namespace EShop.Repository.Domain
             #region ShoppingCart table
             //Keys And Relations
             modelBuilder.Entity<ShoppingCart>().HasKey(sc => sc.ShoppingCartId);
-            modelBuilder.Entity<ShoppingCart>().HasMany(sc => sc.Products).WithOne(p => p.ShoppingCart);
-            modelBuilder.Entity<ShoppingCart>().HasOne(sc => sc.User).WithMany(u => u.ShoppingCarts).HasForeignKey(sc => sc.FK_UserId).OnDelete(DeleteBehavior.SetNull);
+            modelBuilder.Entity<ShoppingCart>().HasMany(sc => sc.Products).WithMany(p => p.ShoppingCarts);
+            modelBuilder.Entity<ShoppingCart>().HasOne(sc => sc.User).WithOne(u => u.ShoppingCart).HasForeignKey<ShoppingCart>(sc => sc.FK_UserId).OnDelete(DeleteBehavior.Cascade);
 
             //Property
-            modelBuilder.Entity<ShoppingCart>().Property(sc => sc.IsFinished).HasDefaultValue(false);
+            modelBuilder.Entity<ShoppingCart>().Property(sc => sc.TotalPrice).HasDefaultValue(0.0);
 
             //Data
             modelBuilder.Entity<ShoppingCart>().HasData(
-                new ShoppingCart { ShoppingCartId = 1, FK_Product = 1, FK_UserId = 1, TotalPrice = 59.50, IsFinished = true }, 
+                new ShoppingCart { ShoppingCartId = 1, FK_Product = 1, FK_UserId = 1, TotalPrice = 59.50 }, 
                 new ShoppingCart { ShoppingCartId = 2, FK_Product = 2, FK_UserId = 1, TotalPrice = 45.00 }
                 );
             #endregion
@@ -98,15 +92,14 @@ namespace EShop.Repository.Domain
             #region Order table
             //Keys And Relations
             modelBuilder.Entity<Order>().HasKey(o => o.OrderId);
-            modelBuilder.Entity<Order>().HasOne(o => o.ShoppingCart).WithOne(sc => sc.Order).HasForeignKey<Order>(O => O.FK_ShooppingCartId).OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Order>().HasOne(o => o.User).WithMany(u => u.Orders).HasForeignKey(o => o.FK_UserId).OnDelete(DeleteBehavior.SetNull);
+            modelBuilder.Entity<Order>().HasOne(o => o.UserInformation).WithMany(ui => ui.Orders).HasForeignKey(o => o.FK_UserInformationId).OnDelete(DeleteBehavior.SetNull);
+            modelBuilder.Entity<Order>().HasMany(o => o.Products).WithMany(p => p.Orders);
 
             //Property
             modelBuilder.Entity<Order>().Property(o => o.OrderDate).HasDefaultValueSql("GetDate()");
 
             //Data
-            modelBuilder.Entity<Order>().HasData(
-                new Order { OrderId = 1, FK_ShooppingCartId = 1, FK_UserInformation = 1, OrderDate = DateTime.Now }
-                );
             #endregion
         }
         #region Table Creations

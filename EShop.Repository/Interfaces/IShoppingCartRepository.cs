@@ -5,9 +5,15 @@ namespace EShop.Repository.Interfaces
 {
     public interface IShoppingCartRepository : IGenericRepository<ShoppingCart>
     {
+        ///// <summary>
+        ///// Add a Product to the ShoppingCart, both base on id.
+        ///// </summary>
+        //public Task AddProductToShoppingCartByProductId(int productId, int shoppingCartId);
+
         /// <summary>
-        /// Add a Product to the ShoppingCart, both base on id.
+        /// Gets the shoppingCart for a specfic user
         /// </summary>
-        public Task AddProductToShoppingCartByProductId(int productId, int shoppingCartId);
+        /// <returns>ShoppingCart</returns>
+        public Task<ShoppingCart> GetShoppingCartByUser(int userId);
     }
 }

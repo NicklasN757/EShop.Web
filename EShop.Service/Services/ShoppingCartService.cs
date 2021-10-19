@@ -19,16 +19,16 @@ namespace EShop.Service.Services
             _shoppingCartRepository = shoppingCartRepository;
         }
 
-        public async Task AddProductToShoppingCartByProductId(int productId, int shoppingCartId)
-        {
-            try
-            {
-                await _shoppingCartRepository.AddProductToShoppingCartByProductId(productId, shoppingCartId);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);
-            }
-        }
+        //public async Task AddProductToShoppingCartByProductId(int productId, int shoppingCartId)
+        //{
+        //    try
+        //    {
+        //        await _shoppingCartRepository.AddProductToShoppingCartByProductId(productId, shoppingCartId);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine(ex);
+        //    }
+        //}
     }
 }

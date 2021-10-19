@@ -21,6 +21,7 @@ namespace EShop.Repository.Entities
 
         //Navigations Properties
         public UserInformation UserInformation { get; set; }
-        public List<ShoppingCart> ShoppingCarts { get; set; }
+        public ShoppingCart ShoppingCart { get; set; }
+        public List<Order> Orders { get; set; }
     }
 }

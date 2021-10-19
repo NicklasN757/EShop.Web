@@ -28,7 +28,6 @@ namespace EShop.Web.Pages
 
         public async Task<IActionResult> OnPostAddToCart(int ProductId)
         {
-            ProductDTO tmpProduct = await _productService.GetByIdAsync(ProductId);
 
             return Page();
         }
