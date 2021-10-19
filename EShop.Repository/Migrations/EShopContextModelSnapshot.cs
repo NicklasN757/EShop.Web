@@ -26,10 +26,10 @@ namespace EShop.Repository.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("FK_ShooppingCartId")
+                    b.Property<int?>("FK_UserId")
                         .HasColumnType("int");
 
-                    b.Property<int>("FK_UserInformation")
+                    b.Property<int?>("FK_UserInformationId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("OrderDate")
@@ -37,26 +37,45 @@ namespace EShop.Repository.Migrations
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("GetDate()");
 
-                    b.Property<int?>("UserInformationUserId")
+                    b.Property<int?>("ProductId")
                         .HasColumnType("int");
+
+                    b.Property<int>("TotalOrderPrice")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
 
                     b.HasKey("OrderId");
 
-                    b.HasIndex("FK_ShooppingCartId")
-                        .IsUnique();
+                    b.HasIndex("FK_UserId");
 
-                    b.HasIndex("UserInformationUserId");
+                    b.HasIndex("FK_UserInformationId");
+
+                    b.HasIndex("ProductId");
 
                     b.ToTable("Orders");
+                });
 
-                    b.HasData(
-                        new
-                        {
-                            OrderId = 1,
-                            FK_ShooppingCartId = 1,
-                            FK_UserInformation = 1,
-                            OrderDate = new DateTime(2021, 10, 18, 8, 55, 35, 933, DateTimeKind.Local).AddTicks(8476)
-                        });
+            modelBuilder.Entity("EShop.Repository.Entities.OrderProduct", b =>
+                {
+                    b.Property<int>("OrderProductId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("FK_Order")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FK_Product")
+                        .HasColumnType("int");
+
+                    b.HasKey("OrderProductId");
+
+                    b.HasIndex("FK_Order");
+
+                    b.HasIndex("FK_Product");
+
+                    b.ToTable("OrderProducts");
                 });
 
             modelBuilder.Entity("EShop.Repository.Entities.PriceOffer", b =>
@@ -87,10 +106,10 @@ namespace EShop.Repository.Migrations
                         new
                         {
                             ProductId = 3,
-                            DateEnding = new DateTime(2022, 10, 18, 8, 55, 35, 927, DateTimeKind.Local).AddTicks(8756),
-                            DateStarted = new DateTime(2021, 10, 18, 8, 55, 35, 925, DateTimeKind.Local).AddTicks(3522),
+                            DateEnding = new DateTime(2022, 10, 20, 0, 21, 55, 126, DateTimeKind.Local).AddTicks(8972),
+                            DateStarted = new DateTime(2021, 10, 20, 0, 21, 55, 125, DateTimeKind.Local).AddTicks(2144),
                             NewPrice = 24.550000000000001,
-                            OfferReason = "Alt for mange fejl"
+                            OfferReason = "Too many bugs ingame"
                         });
                 });
 
@@ -119,15 +138,10 @@ namespace EShop.Repository.Migrations
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
-                    b.Property<int?>("ShoppingCartId")
-                        .HasColumnType("int");
-
                     b.Property<int>("Stock")
                         .HasColumnType("int");
 
                     b.HasKey("ProductId");
-
-                    b.HasIndex("ShoppingCartId");
 
                     b.ToTable("Products");
 
@@ -187,27 +201,14 @@ namespace EShop.Repository.Migrations
             modelBuilder.Entity("EShop.Repository.Entities.ShoppingCart", b =>
                 {
                     b.Property<int>("ShoppingCartId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("FK_Product")
                         .HasColumnType("int");
-
-                    b.Property<int>("FK_UserId")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsFinished")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
 
                     b.Property<double>("TotalPrice")
-                        .HasColumnType("float");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("float")
+                        .HasDefaultValue(0.0);
 
                     b.HasKey("ShoppingCartId");
-
-                    b.HasIndex("FK_UserId");
 
                     b.ToTable("ShoppingCarts");
 
@@ -215,19 +216,40 @@ namespace EShop.Repository.Migrations
                         new
                         {
                             ShoppingCartId = 1,
-                            FK_Product = 1,
-                            FK_UserId = 1,
-                            IsFinished = true,
-                            TotalPrice = 59.5
+                            TotalPrice = 0.0
                         },
                         new
                         {
                             ShoppingCartId = 2,
-                            FK_Product = 2,
-                            FK_UserId = 1,
-                            IsFinished = false,
-                            TotalPrice = 45.0
+                            TotalPrice = 0.0
+                        },
+                        new
+                        {
+                            ShoppingCartId = 3,
+                            TotalPrice = 0.0
                         });
+                });
+
+            modelBuilder.Entity("EShop.Repository.Entities.ShoppingCartProduct", b =>
+                {
+                    b.Property<int>("ShoppingCartProductId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("FK_Product")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FK_ShoppingCart")
+                        .HasColumnType("int");
+
+                    b.HasKey("ShoppingCartProductId");
+
+                    b.HasIndex("FK_Product");
+
+                    b.HasIndex("FK_ShoppingCart");
+
+                    b.ToTable("ShoppingCartProducts");
                 });
 
             modelBuilder.Entity("EShop.Repository.Entities.User", b =>
@@ -331,19 +353,42 @@ namespace EShop.Repository.Migrations
 
             modelBuilder.Entity("EShop.Repository.Entities.Order", b =>
                 {
-                    b.HasOne("EShop.Repository.Entities.ShoppingCart", "ShoppingCart")
-                        .WithOne("Order")
-                        .HasForeignKey("EShop.Repository.Entities.Order", "FK_ShooppingCartId")
-                        .OnDelete(DeleteBehavior.ClientCascade)
-                        .IsRequired();
+                    b.HasOne("EShop.Repository.Entities.User", "User")
+                        .WithMany("Orders")
+                        .HasForeignKey("FK_UserId")
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("EShop.Repository.Entities.UserInformation", "UserInformation")
                         .WithMany("Orders")
-                        .HasForeignKey("UserInformationUserId");
+                        .HasForeignKey("FK_UserInformationId")
+                        .OnDelete(DeleteBehavior.NoAction);
 
-                    b.Navigation("ShoppingCart");
+                    b.HasOne("EShop.Repository.Entities.Product", null)
+                        .WithMany("Orders")
+                        .HasForeignKey("ProductId");
+
+                    b.Navigation("User");
 
                     b.Navigation("UserInformation");
+                });
+
+            modelBuilder.Entity("EShop.Repository.Entities.OrderProduct", b =>
+                {
+                    b.HasOne("EShop.Repository.Entities.Order", "Order")
+                        .WithMany("OrderProducts")
+                        .HasForeignKey("FK_Order")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("EShop.Repository.Entities.Product", "Product")
+                        .WithMany("OrderProducts")
+                        .HasForeignKey("FK_Product")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Order");
+
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("EShop.Repository.Entities.PriceOffer", b =>
@@ -351,29 +396,40 @@ namespace EShop.Repository.Migrations
                     b.HasOne("EShop.Repository.Entities.Product", "Product")
                         .WithOne("PriceOffer")
                         .HasForeignKey("EShop.Repository.Entities.PriceOffer", "ProductId")
-                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("EShop.Repository.Entities.Product", b =>
-                {
-                    b.HasOne("EShop.Repository.Entities.ShoppingCart", "ShoppingCart")
-                        .WithMany("Products")
-                        .HasForeignKey("ShoppingCartId");
-
-                    b.Navigation("ShoppingCart");
-                });
-
             modelBuilder.Entity("EShop.Repository.Entities.ShoppingCart", b =>
                 {
                     b.HasOne("EShop.Repository.Entities.User", "User")
-                        .WithMany("ShoppingCarts")
-                        .HasForeignKey("FK_UserId")
+                        .WithOne("ShoppingCart")
+                        .HasForeignKey("EShop.Repository.Entities.ShoppingCart", "ShoppingCartId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("EShop.Repository.Entities.ShoppingCartProduct", b =>
+                {
+                    b.HasOne("EShop.Repository.Entities.Product", "Product")
+                        .WithMany("ShoppingCartProducts")
+                        .HasForeignKey("FK_Product")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("EShop.Repository.Entities.ShoppingCart", "ShoppingCart")
+                        .WithMany("ShoppingCartProducts")
+                        .HasForeignKey("FK_ShoppingCart")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+
+                    b.Navigation("ShoppingCart");
                 });
 
             modelBuilder.Entity("EShop.Repository.Entities.UserInformation", b =>
@@ -381,27 +437,38 @@ namespace EShop.Repository.Migrations
                     b.HasOne("EShop.Repository.Entities.User", "User")
                         .WithOne("UserInformation")
                         .HasForeignKey("EShop.Repository.Entities.UserInformation", "UserId")
-                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("EShop.Repository.Entities.Order", b =>
+                {
+                    b.Navigation("OrderProducts");
+                });
+
             modelBuilder.Entity("EShop.Repository.Entities.Product", b =>
                 {
+                    b.Navigation("OrderProducts");
+
+                    b.Navigation("Orders");
+
                     b.Navigation("PriceOffer");
+
+                    b.Navigation("ShoppingCartProducts");
                 });
 
             modelBuilder.Entity("EShop.Repository.Entities.ShoppingCart", b =>
                 {
-                    b.Navigation("Order");
-
-                    b.Navigation("Products");
+                    b.Navigation("ShoppingCartProducts");
                 });
 
             modelBuilder.Entity("EShop.Repository.Entities.User", b =>
                 {
-                    b.Navigation("ShoppingCarts");
+                    b.Navigation("Orders");
+
+                    b.Navigation("ShoppingCart");
 
                     b.Navigation("UserInformation");
                 });

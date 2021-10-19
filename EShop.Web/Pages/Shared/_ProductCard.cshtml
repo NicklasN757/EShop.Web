@@ -1,7 +1,7 @@
 ﻿@using EShop.Service.DataTransferObjects;
 @model ProductDTO
 
-<form method="post" asp-page-handler="test" class="card border border-primary" style="min-height: 100%">
+<form method="post" asp-page-handler="BuyNow" class="card border border-primary" style="min-height: 100%">
     <img class="card-img-top border border-primary" src="@("Img/" + Model.ImgUrl)" alt="@Model.Name" />
     <div class="card-body m-0 p-0 ">
         <h5 class="card-header p-1">@Model.Name</h5>
@@ -19,7 +19,7 @@
         </div>
     }
     <div class="row m-0 p-0">
-        <button type="submit" class="btn btn-success col-6 p-0 rounded-0 rounded-bottom rounded-left rounded-top">Buy</button>
+        <button type="submit" name="productId" value="@Model.ProductId" class="btn btn-success col-6 p-0 rounded-0 rounded-bottom rounded-left rounded-top">Buy</button>
         <a asp-page="/Product/ProductDetails" asp-route-ProductId="@Model.ProductId" class="btn btn-primary text-white col-6 p-0 rounded-0 rounded-bottom rounded-right rounded-top">View</a>
     </div>
 </form>

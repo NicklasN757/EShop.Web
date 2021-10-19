@@ -12,10 +12,9 @@ namespace EShop.Service.DataTransferObjects
 
         public bool IsAdmin { get; set; }
 
-        //Foreign keys
-
         //Navigations Properties
         public UserInformationDTO UserInformation { get; set; }
-        public List<ShoppingCartDTO> ShoppingCarts { get; set; }
+        public ShoppingCartDTO ShoppingCart { get; set; }
+        public List<OrderDTO> Orders { get; set; }
     }
 }

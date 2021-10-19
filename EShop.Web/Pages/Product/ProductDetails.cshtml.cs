@@ -1,5 +1,6 @@
 using EShop.Service.DataTransferObjects;
 using EShop.Service.Interfaces;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Threading.Tasks;
@@ -28,8 +29,11 @@ namespace EShop.Web.Pages
 
         public async Task<IActionResult> OnPostAddToCart(int ProductId)
         {
+            int tmpId = (int)HttpContext.Session.GetInt32("_UserId");
 
-            return Page();
+            await _shoppingCartService.AddProductToShoppingCart(ProductId, tmpId);
+
+            return RedirectToPage();
         }
     }
 }

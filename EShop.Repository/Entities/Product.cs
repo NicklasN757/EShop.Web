@@ -27,8 +27,9 @@ namespace EShop.Repository.Entities
         //Foreign keys
 
         //Navigations Properties
-        public List<ShoppingCart> ShoppingCarts { get; set; }
         public PriceOffer PriceOffer { get; set; }
         public List<Order> Orders { get; set; }
+        public List<OrderProduct> OrderProducts { get; set; }
+        public List<ShoppingCartProduct> ShoppingCartProducts { get; set; }
     }
 }

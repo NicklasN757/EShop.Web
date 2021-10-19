@@ -13,7 +13,7 @@
                 <h2 class="m-auto font-weight-bolder">@Model.Product.Name</h2>
             </div>
             <div class="row border-bottom border-primary bg-dark">
-                <img src="@("/Img/" + Model.Product.ImgUrl)" class="img-fluid mr-auto ml-auto m-1 border border-secondary" style="max-height:400px"/>
+                <img src="@("/Img/" + Model.Product.ImgUrl)" class="img-fluid mr-auto ml-auto m-1 border border-secondary" style="max-height:400px" />
             </div>
             <div class="row text-left">
                 <p class="m-1 font-weight-bold">@Model.Product.Description</p>
@@ -25,13 +25,24 @@
                 }
                 else
                 {
+                    <p class="col-12 m-0 p-0 text-warning">@Model.Product.PriceOffer.OfferReason</p>
                     <h4 class="col-6 text-right m-0 p-0"><del>@Model.Product.Price€</del>&nbsp;-&nbsp;</h4>
                     <h4 class="col-6 text-left text-success m-0 p-0">@Model.Product.PriceOffer.NewPrice€</h4>
                 }
             </div>
-            <div class="row">
-                <button type="submit" class="btn btn-success col-12 m-auto rounded-0 rounded-bottom rounded-left rounded-right">Add to cart</button>
-            </div>
+            @if (HttpContext.Session.GetInt32("_UserId") == null)
+            {
+                <div class="row">
+                    <p class="text-danger col-12 mb-0">- Not Logged in. Login to buy -</p>
+                    <a class="btn btn-primary col-12 rounded-0 rounded-bottom rounded-left rounded-right" asp-page="/User/CreateUser">Create account</a>
+                </div>
+            }
+            else
+            {
+                <form method="post" asp-page-handler="AddToCart" class="row">
+                    <button type="submit" class="btn btn-success col-12 rounded-0 rounded-bottom rounded-left rounded-right">Add to cart</button>
+                </form>
+            }
         </div>
     </div>
 </div>

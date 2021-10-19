@@ -1,0 +1,48 @@
+﻿@page
+@model EShop.Web.Pages.Checkout.ShoppingCartViewModel
+@{
+}
+
+<div class="container">
+    <div class="row">
+        <h3>Your shopping cart</h3>
+    </div>
+    <div class="row">
+        <div class="col-8 border border-primary m-auto p-1 rounded">
+            @foreach (ShoppingCartProductDTO product in Model.ShoppingCart.ShoppingCartProducts)
+            {
+                <div class="row border border-primary m-1 rounded">
+                    <div class="col-4 border-right">
+                        <label class="form-text font-weight-bold">Name:</label>
+                        <h5>@product.Product.Name</h5>
+                    </div>
+                    <div class="col-4 border-right">
+                        <label class="form-text font-weight-bold">Price:</label>
+                        @if (product.Product.PriceOffer == null)
+                        {
+                            <h5>@product.Product.Price€</h5>
+                        }
+                        else
+                        {
+                            <h5><del>@product.Product.Price€</del>&nbsp;-&nbsp;<b class="text-success">@product.Product.PriceOffer.NewPrice€</b></h5>
+                        }
+                    </div>
+                    <div class="col-4 p-1 text-center">
+                        <img src="@("/Img/" + product.Product.ImgUrl)" class="border border-secondary" style="max-height:200px" />
+                    </div>
+                </div>
+            }
+            <div class="row border border-primary m-1 rounded">
+                <div class="col-3 border-right border-primary">
+                    <label class="form-text">Total Price:</label>
+                    <h5>@Model.ShoppingCart.TotalPrice€</h5>
+                </div>
+                <div class="col-3 border-right border-primary">
+                    <label class="form-text">Total Product Count:</label>
+                    <h5>@Model.ShoppingCart.ShoppingCartProducts.Count</h5>
+                </div>
+                <button type="submit" class="btn btn-success col-6 rounded-0">Checkout</button>
+            </div>
+        </div>
+    </div>
+</div>

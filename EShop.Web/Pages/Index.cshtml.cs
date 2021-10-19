@@ -14,12 +14,14 @@ namespace EShop.Web.Pages
         private readonly IProductService _productService;
         private readonly IUserService _userService;
         private readonly IUserInformationService _userInformationService;
+        private readonly IShoppingCartService _shoppingCartService;
 
-        public IndexModel(IProductService productService, IUserService userService, IUserInformationService userInformationService)
+        public IndexModel(IProductService productService, IUserService userService, IUserInformationService userInformationService, IShoppingCartService shoppingCartService)
         {
             _productService = productService;
             _userService = userService;
             _userInformationService = userInformationService;
+            _shoppingCartService = shoppingCartService;
         }
 
         public List<ProductDTO> ProductDTOs { get; set; }
@@ -47,5 +49,22 @@ namespace EShop.Web.Pages
 
             return Page();
         }
+
+        public async Task<IActionResult> OnPostBuyNow(int productId)
+        {
+            if (HttpContext.Session.GetInt32("_UserId") == null)
+            {
+                return RedirectToPage("User/CreateUser");
+            }
+            else
+            {
+                int tmpId = (int)HttpContext.Session.GetInt32("_UserId");
+
+                await _shoppingCartService.AddProductToShoppingCart(productId, tmpId);
+                
+                return RedirectToPage("Checkout/ShoppingCartView");
+            }
+        }
+
     }
 }

@@ -2,6 +2,8 @@
 using EShop.Repository.Entities;
 using EShop.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace EShop.Repository.Repositories
@@ -11,24 +13,65 @@ namespace EShop.Repository.Repositories
         private readonly EShopContext _dbContext;
         public ShoppingCartRepository(EShopContext eShopContext) : base(eShopContext) => _dbContext = eShopContext;
 
-        ////Add a Product to the Product list that the ShoppingCart is using
-        //public async Task AddProductToShoppingCartByProductId(int productId, int shoppingCartId)
-        //{
-        //    ShoppingCart tmpShoppingCard = await _dbContext.ShoppingCarts.AsNoTracking().Include(sc => sc.Products).SingleAsync(sc => sc.ShoppingCartId == shoppingCartId);
-        //    Product tmpProduct = await _dbContext.Products.AsNoTracking().Include(p => p.ShoppingCart).SingleAsync(p => p.ProductId == productId);
+        //Adds a specfic entity to the ShoppingCartProducts table
+        public async Task AddProductToShoppingCart(int productId, int shoppingCartId)
+        {
+            ShoppingCartProduct newShoppingCartProduct = new();
+            newShoppingCartProduct.FK_Product = productId;
+            newShoppingCartProduct.FK_ShoppingCart = shoppingCartId;
 
-        //    tmpShoppingCard.Products.Add(tmpProduct);
+            _dbContext.ShoppingCartProducts.Add(newShoppingCartProduct);
+            await _dbContext.SaveChangesAsync();
+        }
 
-        //    _dbContext.ShoppingCarts.Update(tmpShoppingCard);
-        //    await _dbContext.SaveChangesAsync();
-        //}
+        //Removes a specfic entity from the ShoppingCartProducts table
+        public async Task RemoveProductFromShoppingCart(int shoppingCartProductId)
+        {
+            ShoppingCartProduct shoppingCartProduct = await _dbContext.ShoppingCartProducts.AsNoTracking().SingleAsync(scp => scp.ShoppingCartProductId == shoppingCartProductId);
+
+            _dbContext.ShoppingCartProducts.Remove(shoppingCartProduct);
+            await _dbContext.SaveChangesAsync();
+        }
 
         //Get a specfic entity from the shoppingCart based on userId
         public async Task<ShoppingCart> GetShoppingCartByUser(int userId) => await _dbContext.ShoppingCarts
             .AsNoTracking()
-            .Include(sc => sc.Products)
+            .Include(sc => sc.ShoppingCartProducts)
+            .ThenInclude(scp => scp.Product)
             .ThenInclude(p => p.PriceOffer)
             .Include(sc => sc.User)
-            .SingleAsync(sc => sc.FK_UserId == userId);
+            .SingleAsync(sc => sc.ShoppingCartId == userId);
+
+        //Calulates the total price of a cart when the cart is being updated
+        public async Task CalculateTotalCartPrice(int shoppingCartId)
+        {
+            double totalPrice = 0;
+
+            List<ShoppingCartProduct> shoppingCartProducts = new();
+            shoppingCartProducts = await _dbContext.ShoppingCartProducts
+                .AsNoTracking()
+                .Where(scp => scp.FK_ShoppingCart == shoppingCartId)
+                .Include(scp => scp.Product)
+                .ThenInclude(p => p.PriceOffer)
+                .ToListAsync();
+
+            foreach (ShoppingCartProduct product in shoppingCartProducts)
+            {
+                if (product.Product.PriceOffer == null)
+                {
+                    totalPrice += product.Product.Price;
+                }
+                else
+                {
+                    totalPrice += product.Product.PriceOffer.NewPrice;
+                }
+            }
+
+            ShoppingCart shoppingCart = await GetByIdAsync(shoppingCartId);
+            shoppingCart.TotalPrice = totalPrice;
+
+            _dbContext.ShoppingCarts.Update(shoppingCart);
+            await _dbContext.SaveChangesAsync();
+        }
     }
 }

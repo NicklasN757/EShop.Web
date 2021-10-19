@@ -1,4 +1,6 @@
-﻿namespace EShop.Service.DataTransferObjects
+﻿using System.Collections.Generic;
+
+namespace EShop.Service.DataTransferObjects
 {
     public class ProductDTO
     {
@@ -16,10 +18,9 @@
 
         public int Stock { get; set; }
 
-        //Foreign keys
-
         //Navigations Properties
-        public ShoppingCartDTO ShoppingCart { get; set; }
         public PriceOfferDTO PriceOffer { get; set; }
+        public List<OrderProductDTO> OrderProducts { get; set; }
+        public List<ShoppingCartProductDTO> ShoppingCartProducts { get; set; }
     }
 }

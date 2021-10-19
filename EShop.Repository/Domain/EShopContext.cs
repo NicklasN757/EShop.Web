@@ -12,6 +12,44 @@ namespace EShop.Repository.Domain
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            #region Order table
+            //Keys And Relations
+            modelBuilder.Entity<Order>().HasKey(o => o.OrderId);
+            modelBuilder.Entity<Order>().HasOne(o => o.User).WithMany(u => u.Orders).HasForeignKey(o => o.FK_UserId).OnDelete(DeleteBehavior.NoAction);
+            modelBuilder.Entity<Order>().HasOne(o => o.UserInformation).WithMany(ui => ui.Orders).HasForeignKey(o => o.FK_UserInformationId).OnDelete(DeleteBehavior.NoAction);
+
+            //Property
+            modelBuilder.Entity<Order>().Property(o => o.OrderDate).HasDefaultValueSql("GetDate()");
+            modelBuilder.Entity<Order>().Property(o => o.TotalOrderPrice).HasDefaultValue(0.0);
+
+            //Data
+            #endregion
+
+            #region OrderProduct table
+            //Keys And Relations
+            modelBuilder.Entity<OrderProduct>().HasKey(op => op.OrderProductId);
+            modelBuilder.Entity<OrderProduct>().HasOne(op => op.Order).WithMany(o => o.OrderProducts).HasForeignKey(op => op.FK_Order).OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<OrderProduct>().HasOne(op => op.Product).WithMany(p => p.OrderProducts).HasForeignKey(op => op.FK_Product).OnDelete(DeleteBehavior.Cascade);
+
+            //Property
+
+            //Data
+            #endregion
+
+            #region PriceOffer
+            //Keys And Relations
+            modelBuilder.Entity<PriceOffer>().HasKey(po => po.ProductId);
+            modelBuilder.Entity<PriceOffer>().HasOne(po => po.Product).WithOne(po => po.PriceOffer).HasForeignKey<PriceOffer>(po => po.ProductId).OnDelete(DeleteBehavior.Cascade);
+
+            //Property
+            modelBuilder.Entity<PriceOffer>().Property(po => po.DateStarted).HasDefaultValueSql("GetDate()");
+
+            //Data
+            modelBuilder.Entity<PriceOffer>().HasData(
+                new PriceOffer { ProductId = 3, NewPrice = 24.55, OfferReason = "Too many bugs ingame", DateStarted = DateTime.Now, DateEnding = DateTime.Now.AddDays(365) }
+                );
+            #endregion
+
             #region Product table
             //Keys And Relations
             modelBuilder.Entity<Product>().HasKey(p => p.ProductId);
@@ -29,18 +67,31 @@ namespace EShop.Repository.Domain
                 );
             #endregion
 
-            #region PriceOffer
+            #region ShoppingCart table
             //Keys And Relations
-            modelBuilder.Entity<PriceOffer>().HasKey(po => po.ProductId);
-            modelBuilder.Entity<PriceOffer>().HasOne(po => po.Product).WithOne(po => po.PriceOffer).HasForeignKey<PriceOffer>(po => po.ProductId).OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<ShoppingCart>().HasKey(sc => sc.ShoppingCartId);
+            modelBuilder.Entity<ShoppingCart>().HasOne(sc => sc.User).WithOne(u => u.ShoppingCart).HasForeignKey<ShoppingCart>(sc => sc.ShoppingCartId).OnDelete(DeleteBehavior.Cascade);
 
             //Property
-            modelBuilder.Entity<PriceOffer>().Property(po => po.DateStarted).HasDefaultValueSql("GetDate()");
+            modelBuilder.Entity<ShoppingCart>().Property(sc => sc.TotalPrice).HasDefaultValue(0.0);
 
             //Data
-            modelBuilder.Entity<PriceOffer>().HasData(
-                new PriceOffer { ProductId = 3, NewPrice = 24.55, OfferReason = "Alt for mange fejl", DateStarted = DateTime.Now, DateEnding = DateTime.Now.AddDays(365) }
+            modelBuilder.Entity<ShoppingCart>().HasData(
+                new ShoppingCart { ShoppingCartId = 1 }, 
+                new ShoppingCart { ShoppingCartId = 2 },
+                new ShoppingCart { ShoppingCartId = 3 }
                 );
+            #endregion
+
+            #region ShoppingCart table
+            //Keys And Relations
+            modelBuilder.Entity<ShoppingCartProduct>().HasKey(scp => scp.ShoppingCartProductId);
+            modelBuilder.Entity<ShoppingCartProduct>().HasOne(scp => scp.ShoppingCart).WithMany(sc => sc.ShoppingCartProducts).HasForeignKey(scp => scp.FK_ShoppingCart).OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<ShoppingCartProduct>().HasOne(scp => scp.Product).WithMany(p => p.ShoppingCartProducts).HasForeignKey(scp => scp.FK_Product).OnDelete(DeleteBehavior.Cascade);
+
+            //Property
+
+            //Data
             #endregion
 
             #region User table
@@ -53,24 +104,8 @@ namespace EShop.Repository.Domain
             //Data
             modelBuilder.Entity<User>().HasData(
                 new User { UserId = 1, Username = "NicklasN757", Pin = 7571, IsAdmin = true },
-                new User { UserId = 2, Username = "PinkMan42", Pin = 4242},
-                new User { UserId = 3, Username = "YoloSwagMC", Pin = 1234}
-                );
-            #endregion
-
-            #region ShoppingCart table
-            //Keys And Relations
-            modelBuilder.Entity<ShoppingCart>().HasKey(sc => sc.ShoppingCartId);
-            modelBuilder.Entity<ShoppingCart>().HasMany(sc => sc.Products).WithMany(p => p.ShoppingCarts);
-            modelBuilder.Entity<ShoppingCart>().HasOne(sc => sc.User).WithOne(u => u.ShoppingCart).HasForeignKey<ShoppingCart>(sc => sc.FK_UserId).OnDelete(DeleteBehavior.Cascade);
-
-            //Property
-            modelBuilder.Entity<ShoppingCart>().Property(sc => sc.TotalPrice).HasDefaultValue(0.0);
-
-            //Data
-            modelBuilder.Entity<ShoppingCart>().HasData(
-                new ShoppingCart { ShoppingCartId = 1, FK_Product = 1, FK_UserId = 1, TotalPrice = 59.50 }, 
-                new ShoppingCart { ShoppingCartId = 2, FK_Product = 2, FK_UserId = 1, TotalPrice = 45.00 }
+                new User { UserId = 2, Username = "PinkMan42", Pin = 4242 },
+                new User { UserId = 3, Username = "YoloSwagMC", Pin = 1234 }
                 );
             #endregion
 
@@ -88,27 +123,16 @@ namespace EShop.Repository.Domain
                 new UserInformation { UserId = 3, FullName = "John Jørgensen", City = "København", Adress = "Høffdingsvej 14", EMail = "KildeSkolen@hotmail.com" }
                 );
             #endregion
-
-            #region Order table
-            //Keys And Relations
-            modelBuilder.Entity<Order>().HasKey(o => o.OrderId);
-            modelBuilder.Entity<Order>().HasOne(o => o.User).WithMany(u => u.Orders).HasForeignKey(o => o.FK_UserId).OnDelete(DeleteBehavior.SetNull);
-            modelBuilder.Entity<Order>().HasOne(o => o.UserInformation).WithMany(ui => ui.Orders).HasForeignKey(o => o.FK_UserInformationId).OnDelete(DeleteBehavior.SetNull);
-            modelBuilder.Entity<Order>().HasMany(o => o.Products).WithMany(p => p.Orders);
-
-            //Property
-            modelBuilder.Entity<Order>().Property(o => o.OrderDate).HasDefaultValueSql("GetDate()");
-
-            //Data
-            #endregion
         }
         #region Table Creations
         public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderProduct> OrderProducts { get; set; }
+        public DbSet<PriceOffer> PriceOffers { get; set; }
         public DbSet<Product> Products { get; set; }
+        public DbSet<ShoppingCartProduct> ShoppingCartProducts { get; set; }
         public DbSet<ShoppingCart> ShoppingCarts { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<UserInformation> UserInformations { get; set; }
-        public DbSet<PriceOffer> PriceOffers { get; set; }
         #endregion
     }
 }

@@ -23,6 +23,10 @@ namespace Service.Services
                 cfg.CreateMap<Order, OrderDTO>();
                 cfg.CreateMap<OrderDTO, Order>();
 
+                // OrderProduct
+                cfg.CreateMap<OrderProduct, OrderProductDTO>();
+                cfg.CreateMap<OrderProductDTO, OrderProduct>();
+
                 // Product
                 cfg.CreateMap<Product, ProductDTO>();
                 cfg.CreateMap<ProductDTO, Product>();
@@ -34,6 +38,10 @@ namespace Service.Services
                 // ShoppingCart
                 cfg.CreateMap<ShoppingCart, ShoppingCartDTO>();
                 cfg.CreateMap<ShoppingCartDTO, ShoppingCart>();
+
+                // ShoppingCartProduct
+                cfg.CreateMap<ShoppingCartProduct, ShoppingCartProductDTO>();
+                cfg.CreateMap<ShoppingCartProductDTO, ShoppingCartProduct>();
 
                 // User
                 cfg.CreateMap<User, UserDTO>();

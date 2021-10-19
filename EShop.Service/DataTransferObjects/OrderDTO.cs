@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EShop.Service.DataTransferObjects
 {
@@ -12,12 +9,15 @@ namespace EShop.Service.DataTransferObjects
 
         public DateTime OrderDate { get; set; }
 
+        public int TotalOrderPrice { get; set; }
+
         //Foreign keys
-        public int FK_ShooppingCartId { get; set; }
-        public int FK_UserInformation { get; set; }
+        public int? FK_UserInformationId { get; set; }
+        public int? FK_UserId { get; set; }
 
         //Navigations Properties
-        public ShoppingCartDTO ShoppingCart { get; set; }
         public UserInformationDTO UserInformation { get; set; }
+        public UserDTO User { get; set; }
+        public List<OrderProductDTO> OrderProducts { get; set; }
     }
 }
