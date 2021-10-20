@@ -1,10 +1,9 @@
 ﻿using EShop.Repository.Domain;
 using EShop.Repository.Entities;
 using EShop.Repository.Interfaces;
-using System;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace EShop.Repository.Repositories
@@ -13,5 +12,41 @@ namespace EShop.Repository.Repositories
     {
         private readonly EShopContext _dbContext;
         public OrderRepository(EShopContext eShopContext) : base(eShopContext) => _dbContext = eShopContext;
+
+        //Converts a list of ShoppingCartProduct entities ind to ProductOrder entities
+        public async Task<List<OrderProduct>> ConvertShoppingCartToOrder(List<ShoppingCartProduct> shoppingCartProducts, int orderId)
+        {
+            List<OrderProduct> orderProducts = new();
+            foreach (ShoppingCartProduct shoppingCartProduct in shoppingCartProducts)
+            {
+                OrderProduct newOrderProduct = new();
+                newOrderProduct.FK_Order = orderId;
+                newOrderProduct.FK_Product = shoppingCartProduct.FK_Product;
+
+                orderProducts.Add(newOrderProduct);
+            }
+
+            _dbContext.AddRange(orderProducts);
+            await _dbContext.SaveChangesAsync();
+
+            return orderProducts;
+        }
+
+        //Creates a new entity and then returns it again
+        public async Task<Order> CreateAndReturnOrder(Order newOrder)
+        {
+            _dbContext.Add(newOrder);
+            await _dbContext.SaveChangesAsync();
+            return newOrder;
+        }
+
+        //Gets all order realated to a single user
+        public async Task<List<Order>> GetAllOrdersByUser(int userId) => await _dbContext.Orders
+            .AsNoTracking()
+            .Include(o => o.OrderProducts)
+            .ThenInclude(op => op.Product)
+            .AsNoTracking()
+            .Where(o => o.FK_UserId == userId)
+            .ToListAsync();
     }
 }

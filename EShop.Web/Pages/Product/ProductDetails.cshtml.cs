@@ -20,6 +20,7 @@ namespace EShop.Web.Pages
 
         public ProductDTO Product { get; set; }
 
+        //Runs when the site loads
         public async Task<IActionResult> OnGet(int ProductId)
         {
             Product = await _productService.GetProductByIdWithPriceOffer(ProductId);
@@ -27,11 +28,12 @@ namespace EShop.Web.Pages
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAddToCart(int ProductId)
+        //Adds a product to the shopping cart
+        public async Task<IActionResult> OnPostAddToCart(int productId)
         {
             int tmpId = (int)HttpContext.Session.GetInt32("_UserId");
 
-            await _shoppingCartService.AddProductToShoppingCart(ProductId, tmpId);
+            await _shoppingCartService.AddProductToShoppingCart(productId, tmpId);
 
             return RedirectToPage();
         }

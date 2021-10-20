@@ -1,9 +1,26 @@
 ﻿using EShop.Service.DataTransferObjects;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace EShop.Service.Interfaces
 {
     public interface IOrderService : IGenericService<OrderDTO>
     {
-        // Nothing to see here please move on or ...
+        /// <summary>
+        /// Converts ShoppingCartProducts to orderProducts and return the OrderProduct list
+        /// </summary>
+        public Task<List<OrderProductDTO>> ConvertShoppingCartToOrder(List<ShoppingCartProductDTO> shoppingCartProducts, int orderId);
+
+        /// <summary>
+        /// Create a new order and then return its
+        /// </summary>
+        /// <returns>A Order </returns>
+        public Task<OrderDTO> CreateAndReturnOrder(OrderDTO newOrder);
+
+        /// <summary>
+        /// Gets all realated orders for a specfic user, based on userId
+        /// </summary>
+        /// <returns>A list of orders</returns>
+        public Task<List<OrderDTO>> GetAllOrdersByUser(int userId);
     }
 }

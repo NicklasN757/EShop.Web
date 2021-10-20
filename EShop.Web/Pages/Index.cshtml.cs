@@ -31,6 +31,7 @@ namespace EShop.Web.Pages
         [BindProperty(SupportsGet = true)]
         public string SeachString { get; set; }
 
+        //Runs when the site loads
         public async Task<IActionResult> OnGet()
         {
             if (HttpContext.Session.GetInt32("_UserId") == null)
@@ -50,11 +51,12 @@ namespace EShop.Web.Pages
             return Page();
         }
 
+        //Add a product to the shopping cart and then redirect to it the shopping cart view 
         public async Task<IActionResult> OnPostBuyNow(int productId)
         {
             if (HttpContext.Session.GetInt32("_UserId") == null)
             {
-                return RedirectToPage("User/CreateUser");
+                return RedirectToPage("User/UserLogin");
             }
             else
             {

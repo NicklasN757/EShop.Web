@@ -1,0 +1,20 @@
+﻿@page
+@model EShop.Web.Pages.Checkout.ThankYouModel
+@{
+}
+
+<div class="container text-center">
+    <div class="col-8 m-auto">
+        <div class="row m-auto border border-primary bg-success rounded">
+            <h1 class="mt-1 mb-1 mr-auto ml-auto text-center">Thank you for your order</h1>
+        </div>
+        <div class="row mt-1">
+            <div class="col-6 text-left">
+                <a asp-page="../Index" class="btn btn-primary">@("< - Back to shop")</a>
+            </div>
+            <div class="col-6 text-right">
+                <a asp-page="../User/OrderHistoryView" class="btn btn-primary text-right">@("See your orders - >")</a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -9,7 +9,7 @@ namespace EShop.Service.DataTransferObjects
 
         public DateTime OrderDate { get; set; }
 
-        public int TotalOrderPrice { get; set; }
+        public double TotalOrderPrice { get; set; }
 
         //Foreign keys
         public int? FK_UserInformationId { get; set; }

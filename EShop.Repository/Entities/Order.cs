@@ -13,7 +13,7 @@ namespace EShop.Repository.Entities
         public DateTime OrderDate { get; set; }
 
         [Required]
-        public int  TotalOrderPrice { get; set; }
+        public double  TotalOrderPrice { get; set; }
 
         //Foreign keys
         public int? FK_UserInformationId { get; set; }

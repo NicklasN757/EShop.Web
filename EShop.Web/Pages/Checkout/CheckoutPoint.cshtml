@@ -7,4 +7,67 @@
     <div class="row border-bottom border-primary">
         <h1 class="m-1">Checkout</h1>
     </div>
+    <form method="post" asp-page-handler="UpdateUserInformation" class="col-12 border border-primary rounded m-1">
+        <div class="row border-bottom border-primary">
+            <div class="col-6">
+                <h3 class="mt-1">Your user information</h3>
+            </div>
+            <div class="col-6 text-right">
+                <button type="submit" class="btn btn-warning m-1 text-right" name="userId" value="@Model.UserInformation.UserId">Update</button>
+            </div>
+        </div>
+        <div class="row input-group m-1 p-1">
+            <div class="col-3">
+                <label class="form-text">Full Name:</label>
+                <input type="text" asp-for="@Model.UserInformation.FullName" class="form-control border-primary" />
+            </div>
+            <div class="col-3">
+                <label class="form-text">City:</label>
+                <input type="text" asp-for="@Model.UserInformation.City" class="form-control border-primary" />
+            </div>
+            <div class="col-3">
+                <label class="form-text">Adress:</label>
+                <input type="text" asp-for="@Model.UserInformation.Adress" class="form-control border-primary" />
+            </div>
+            <div class="col-3">
+                <label class="form-text">EMail:</label>
+                <input type="text" asp-for="@Model.UserInformation.EMail" class="form-control border-primary" />
+            </div>
+        </div>
+    </form>
+    @foreach (ShoppingCartProductDTO shoppingCartProduct in Model.ShoppingCart.ShoppingCartProducts)
+    {
+        <div class="col-12 border border-primary m-1 p-0 rounded row">
+            <div class="col-4 border-right">
+                <label class="form-text font-weight-bold">Name:</label>
+                <h5>@shoppingCartProduct.Product.Name</h5>
+            </div>
+            <div class="col-4 border-right">
+                <label class="form-text font-weight-bold">Price:</label>
+                @if (shoppingCartProduct.Product.PriceOffer == null)
+                {
+                    <h5>@shoppingCartProduct.Product.Price€</h5>
+                }
+                else
+                {
+                    <h5><del>@shoppingCartProduct.Product.Price€</del>&nbsp;-&nbsp;<b class="text-success">@shoppingCartProduct.Product.PriceOffer.NewPrice€</b></h5>
+                }
+            </div>
+            <div class="col-4 p-1 text-center">
+                <img src="@("/Img/" + shoppingCartProduct.Product.ImgUrl)" class="border border-secondary" style="max-height:200px" />
+            </div>
+
+        </div>
+    }
+    <form method="post" asp-page-handler="ConfirmOrder" class="col-12 border border-primary m-1 p-0 rounded row">
+        <div class="col-4 border-right border-primary">
+            <label class="form-text">Total Price:</label>
+            <h5>@Model.ShoppingCart.TotalPrice.ToString("#.##")€</h5>
+        </div>
+        <div class="col-5 border-right border-primary">
+            <label class="form-text">Total Product Count:</label>
+            <h5>@Model.ShoppingCart.ShoppingCartProducts.Count</h5>
+        </div>
+        <button type="submit" class="btn btn-warning rounded-0 col-3">Confirm Order</button>
+    </form>
 </div>

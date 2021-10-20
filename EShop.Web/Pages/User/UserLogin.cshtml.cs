@@ -19,7 +19,7 @@ namespace EShop.Web.Pages
         }
 
         //User
-        public UserDTO User { get; set; }
+        public UserDTO AppUser { get; set; }
         public UserInformationDTO UserInformation { get; set; }
 
         //Other
@@ -39,7 +39,7 @@ namespace EShop.Web.Pages
                 int tmpId = (int)HttpContext.Session.GetInt32("_UserId");
 
                 UserInformation = await _userInformationService.GetByIdAsync(tmpId);
-                User = await _userService.GetByIdAsync(tmpId);
+                AppUser = await _userService.GetByIdAsync(tmpId);
             }
             return Page();
         }
