@@ -7,7 +7,7 @@
     <div class="row border-bottom border-primary">
         <h1 class="m-1">Checkout</h1>
     </div>
-    <form method="post" asp-page-handler="UpdateUserInformation" class="col-12 border border-primary rounded m-1">
+    <form method="post" asp-page-handler="UpdateUserInformation" class="col-12 border border-primary rounded m-1 mt-2">
         <div class="row border-bottom border-primary">
             <div class="col-6">
                 <h3 class="mt-1">Your user information</h3>
@@ -70,4 +70,9 @@
         </div>
         <button type="submit" class="btn btn-warning rounded-0 col-3">Confirm Order</button>
     </form>
+    <div class="col-12 m-1 p-0 row">
+        <div class="col-6 text-left p-0">
+            <a asp-page="ShoppingCartView" class="btn btn-primary">@("< - Back To Cart")</a>
+        </div>
+    </div>
 </div>
