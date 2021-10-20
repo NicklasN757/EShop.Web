@@ -7,19 +7,20 @@ using System.Threading.Tasks;
 
 namespace EShop.Web.Pages.Product
 {
-    public class DeleteProductModel : PageModel
+    public class AddProductModel : PageModel
     {
         private readonly IProductService _productService;
         private readonly IUserService _userService;
 
-        public DeleteProductModel(IProductService productService, IUserService userService)
+        public AddProductModel(IProductService productService, IUserService userService)
         {
             _productService = productService;
             _userService = userService;
         }
 
+        [BindProperty]
         public ProductDTO Product { get; set; }
-        
+
         //Runs when the site loads
         public async Task<IActionResult> OnGet(int ProductId)
         {
@@ -34,9 +35,6 @@ namespace EShop.Web.Pages.Product
                 {
                     return RedirectToPage("../Product/ProductDetails");
                 }
-
-                Product = await _productService.GetByIdAsync(ProductId);
-
             }
 
             return Page();
