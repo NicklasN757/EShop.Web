@@ -16,7 +16,9 @@ namespace EShop.Service.DataTransferObjects
 
         public bool InStock { get; set; }
 
-        public int Stock { get; set; }
+        public int TotalStock { get; set; }
+
+        public bool IsDeleted { get; set; }
 
         //Navigations Properties
         public PriceOfferDTO PriceOffer { get; set; }

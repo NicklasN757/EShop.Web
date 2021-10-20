@@ -22,7 +22,10 @@ namespace EShop.Repository.Entities
         public bool InStock { get; set; }
 
         [Required]
-        public int Stock { get; set; }
+        public int TotalStock { get; set; }
+
+        [Required]
+        public bool IsDeleted { get; set; }
 
         //Foreign keys
 

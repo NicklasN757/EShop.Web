@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EShop.Repository.Migrations
 {
     [DbContext(typeof(EShopContext))]
-    [Migration("20211020190200_init")]
+    [Migration("20211020212233_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -108,8 +108,8 @@ namespace EShop.Repository.Migrations
                         new
                         {
                             ProductId = 3,
-                            DateEnding = new DateTime(2022, 10, 20, 21, 2, 0, 351, DateTimeKind.Local).AddTicks(6776),
-                            DateStarted = new DateTime(2021, 10, 20, 21, 2, 0, 349, DateTimeKind.Local).AddTicks(9892),
+                            DateEnding = new DateTime(2022, 10, 20, 23, 22, 33, 201, DateTimeKind.Local).AddTicks(4220),
+                            DateStarted = new DateTime(2021, 10, 20, 23, 22, 33, 199, DateTimeKind.Local).AddTicks(6939),
                             NewPrice = 24.550000000000001,
                             OfferReason = "Too many bugs ingame"
                         });
@@ -133,6 +133,11 @@ namespace EShop.Repository.Migrations
                         .HasColumnType("bit")
                         .HasDefaultValue(true);
 
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -140,7 +145,7 @@ namespace EShop.Repository.Migrations
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
-                    b.Property<int>("Stock")
+                    b.Property<int>("TotalStock")
                         .HasColumnType("int");
 
                     b.HasKey("ProductId");
@@ -154,9 +159,10 @@ namespace EShop.Repository.Migrations
                             Description = "Become Eivor, a legendary Viking raider on a quest for glory. Explore England's Dark Ages as you raid your enemies, grow your settlement, and build your political power.",
                             ImgUrl = "product_1.jpg",
                             InStock = false,
+                            IsDeleted = false,
                             Name = "Assassin´s Creed Valhalla",
                             Price = 59.950000000000003,
-                            Stock = 200
+                            TotalStock = 200
                         },
                         new
                         {
@@ -164,9 +170,10 @@ namespace EShop.Repository.Migrations
                             Description = "Experience one of the most exciting and fast-changing periods of all time. Discover new technologies, continents, and societies. Build a new world in your image! All the ingredients are gathered for a memorable Anno experience. Travel throughout the world during the Industrial Revolution to write your own story!",
                             ImgUrl = "product_2.jpg",
                             InStock = false,
+                            IsDeleted = false,
                             Name = "Anno 1800",
                             Price = 45.0,
-                            Stock = 150
+                            TotalStock = 150
                         },
                         new
                         {
@@ -174,9 +181,10 @@ namespace EShop.Repository.Migrations
                             Description = "Build a resistance from virtually anyone you see as you hack, infiltrate, and fight to take back a near-future London that is facing its downfall.",
                             ImgUrl = "product_3.jpg",
                             InStock = false,
+                            IsDeleted = false,
                             Name = "Watch Dogs: Legion",
                             Price = 50.0,
-                            Stock = 100
+                            TotalStock = 100
                         },
                         new
                         {
@@ -184,9 +192,10 @@ namespace EShop.Repository.Migrations
                             Description = "18th century, North America. Amidst the chaos and violence of the French and Indian War, Shay Patrick Cormac, a fearless young member of the Brotherhood of Assassin’s, undergoes a dark transformation that will forever shape the future of the American colonies.",
                             ImgUrl = "product_4.jpg",
                             InStock = false,
+                            IsDeleted = false,
                             Name = "Assassin´s Creed Rogue",
                             Price = 11.949999999999999,
-                            Stock = 15
+                            TotalStock = 15
                         },
                         new
                         {
@@ -194,9 +203,10 @@ namespace EShop.Repository.Migrations
                             Description = "Squad up and breach in to explosive 5v5 PVP action. Tom Clancy's Rainbow Six Siege features a huge roster of specialized operators, each with game-changing gadgets to help you lead your team to victory.",
                             ImgUrl = "product_5.jpg",
                             InStock = false,
+                            IsDeleted = false,
                             Name = "Tom Clancy´s Rainbow Six Siege",
                             Price = 24.949999999999999,
-                            Stock = 1050
+                            TotalStock = 1050
                         });
                 });
 

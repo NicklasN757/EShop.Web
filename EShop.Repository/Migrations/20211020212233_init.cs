@@ -18,7 +18,8 @@ namespace EShop.Repository.Migrations
                     Price = table.Column<double>(type: "float", nullable: false),
                     ImgUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     InStock = table.Column<bool>(type: "bit", nullable: false, defaultValue: true),
-                    Stock = table.Column<int>(type: "int", nullable: false)
+                    TotalStock = table.Column<int>(type: "int", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false)
                 },
                 constraints: table =>
                 {
@@ -187,7 +188,7 @@ namespace EShop.Repository.Migrations
 
             migrationBuilder.InsertData(
                 table: "Products",
-                columns: new[] { "ProductId", "Description", "ImgUrl", "Name", "Price", "Stock" },
+                columns: new[] { "ProductId", "Description", "ImgUrl", "Name", "Price", "TotalStock" },
                 values: new object[,]
                 {
                     { 1, "Become Eivor, a legendary Viking raider on a quest for glory. Explore England's Dark Ages as you raid your enemies, grow your settlement, and build your political power.", "product_1.jpg", "Assassin´s Creed Valhalla", 59.950000000000003, 200 },
@@ -214,7 +215,7 @@ namespace EShop.Repository.Migrations
             migrationBuilder.InsertData(
                 table: "PriceOffers",
                 columns: new[] { "ProductId", "DateEnding", "DateStarted", "NewPrice", "OfferReason" },
-                values: new object[] { 3, new DateTime(2022, 10, 20, 21, 2, 0, 351, DateTimeKind.Local).AddTicks(6776), new DateTime(2021, 10, 20, 21, 2, 0, 349, DateTimeKind.Local).AddTicks(9892), 24.550000000000001, "Too many bugs ingame" });
+                values: new object[] { 3, new DateTime(2022, 10, 20, 23, 22, 33, 201, DateTimeKind.Local).AddTicks(4220), new DateTime(2021, 10, 20, 23, 22, 33, 199, DateTimeKind.Local).AddTicks(6939), 24.550000000000001, "Too many bugs ingame" });
 
             migrationBuilder.InsertData(
                 table: "ShoppingCarts",
