@@ -35,7 +35,7 @@ namespace EShop.Web.Pages
         {
             if (HttpContext.Session.GetInt32("_UserId") == null)
             {
-                WelcomeMeassage = "Hello and welcome to my shop.";
+                WelcomeMeassage = "Hello and welcome to my shop please make a account or login to buy.";
             }
             else
             {

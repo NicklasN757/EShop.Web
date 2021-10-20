@@ -25,5 +25,10 @@ namespace EShop.Service.Interfaces
         /// Updates the giving ShoppingCarts total price base on shoppingCartId
         /// </summary>
         public Task CalculateTotalCartPrice(int shoppingCartId);
+
+        /// <summary>
+        /// Removes all products from a shoppingcart
+        /// </summary>
+        public Task ClearCart(int shoppingCartId);
     }
 }

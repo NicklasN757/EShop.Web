@@ -4,45 +4,64 @@
 }
 
 <div class="container">
-    <div class="row">
-        <h3>Your shopping cart</h3>
+    <div class="row border-bottom border-primary">
+        <h1 class="m-1">Your shopping cart</h1>
     </div>
-    <div class="row">
-        <div class="col-8 border border-primary m-auto p-1 rounded">
-            @foreach (ShoppingCartProductDTO product in Model.ShoppingCart.ShoppingCartProducts)
-            {
+    @if (Model.ShoppingCart.ShoppingCartProducts.Count > 0)
+    {
+        <div class="row mt-3">
+            <div class="col-8 border border-primary m-auto p-1 rounded">
+                @foreach (ShoppingCartProductDTO shoppingCartProduct in Model.ShoppingCart.ShoppingCartProducts)
+                {
+                    <div class="row border border-primary m-1 rounded">
+                        <div class="col-4 border-right">
+                            <label class="form-text font-weight-bold">Name:</label>
+                            <h5>@shoppingCartProduct.Product.Name</h5>
+                        </div>
+                        <div class="col-3 border-right">
+                            <label class="form-text font-weight-bold">Price:</label>
+                            @if (shoppingCartProduct.Product.PriceOffer == null)
+                            {
+                                <h5>@shoppingCartProduct.Product.Price€</h5>
+                            }
+                            else
+                            {
+                                <h5><del>@shoppingCartProduct.Product.Price€</del>&nbsp;-&nbsp;<b class="text-success">@shoppingCartProduct.Product.PriceOffer.NewPrice€</b></h5>
+                            }
+                        </div>
+                        <div class="col-3 p-1 text-center border-right">
+                            <img src="@("/Img/" + shoppingCartProduct.Product.ImgUrl)" class="border border-secondary" style="max-height:100px" />
+                        </div>
+                        <form method="post" asp-page-handler="RemoveProduct" class="col-2 p-1 m-auto text-center">
+                            <button class="btn btn-danger" name="shoppingCartProductId" value="@shoppingCartProduct.ShoppingCartProductId">Remove</button>
+                        </form>
+                    </div>
+                }
                 <div class="row border border-primary m-1 rounded">
-                    <div class="col-4 border-right">
-                        <label class="form-text font-weight-bold">Name:</label>
-                        <h5>@product.Product.Name</h5>
+                    <div class="col-3 border-right border-primary">
+                        <label class="form-text">Total Price:</label>
+                        <h5>@Model.ShoppingCart.TotalPrice.ToString("#.##")€</h5>
                     </div>
-                    <div class="col-4 border-right">
-                        <label class="form-text font-weight-bold">Price:</label>
-                        @if (product.Product.PriceOffer == null)
-                        {
-                            <h5>@product.Product.Price€</h5>
-                        }
-                        else
-                        {
-                            <h5><del>@product.Product.Price€</del>&nbsp;-&nbsp;<b class="text-success">@product.Product.PriceOffer.NewPrice€</b></h5>
-                        }
+                    <div class="col-3 border-right border-primary">
+                        <label class="form-text">Total Product Count:</label>
+                        <h5>@Model.ShoppingCart.ShoppingCartProducts.Count</h5>
                     </div>
-                    <div class="col-4 p-1 text-center">
-                        <img src="@("/Img/" + product.Product.ImgUrl)" class="border border-secondary" style="max-height:200px" />
-                    </div>
+                    <form method="post" asp-page-handler="ClearCart" class="col-6 m-auto text-center row">
+                        <div class="col-6">
+                            <a asp-page="CheckoutPoint" class="btn btn-success text-white">Checkout</a>
+                        </div>
+                        <div class="col-6">
+                            <button type="submit" class="btn btn-danger">Clear cart</button>
+                        </div>
+                    </form>
                 </div>
-            }
-            <div class="row border border-primary m-1 rounded">
-                <div class="col-3 border-right border-primary">
-                    <label class="form-text">Total Price:</label>
-                    <h5>@Model.ShoppingCart.TotalPrice€</h5>
-                </div>
-                <div class="col-3 border-right border-primary">
-                    <label class="form-text">Total Product Count:</label>
-                    <h5>@Model.ShoppingCart.ShoppingCartProducts.Count</h5>
-                </div>
-                <button type="submit" class="btn btn-success col-6 rounded-0">Checkout</button>
             </div>
         </div>
-    </div>
+    }
+    else
+    {
+        <div class="row text-warning">
+            <h3 class="m-1">Your shopping cart are empty. What are you waiting for? Go add some games to it?</h3>
+        </div>
+    }
 </div>

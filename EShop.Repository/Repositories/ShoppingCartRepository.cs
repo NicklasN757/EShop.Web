@@ -22,6 +22,8 @@ namespace EShop.Repository.Repositories
 
             _dbContext.ShoppingCartProducts.Add(newShoppingCartProduct);
             await _dbContext.SaveChangesAsync();
+
+            await CalculateTotalCartPrice(shoppingCartId);
         }
 
         //Removes a specfic entity from the ShoppingCartProducts table
@@ -31,6 +33,8 @@ namespace EShop.Repository.Repositories
 
             _dbContext.ShoppingCartProducts.Remove(shoppingCartProduct);
             await _dbContext.SaveChangesAsync();
+
+            await CalculateTotalCartPrice(shoppingCartProduct.FK_ShoppingCart);
         }
 
         //Get a specfic entity from the shoppingCart based on userId
@@ -71,6 +75,22 @@ namespace EShop.Repository.Repositories
             shoppingCart.TotalPrice = totalPrice;
 
             _dbContext.ShoppingCarts.Update(shoppingCart);
+            await _dbContext.SaveChangesAsync();
+        }
+
+        //Remove all entities thats related to a single ShoppingCart
+        public async Task ClearCart(int shoppingCartId)
+        {
+            List<ShoppingCartProduct> shoppingCartProducts = await _dbContext.ShoppingCartProducts
+                .AsNoTracking()
+                .Where(scp => scp.FK_ShoppingCart == shoppingCartId)
+                .ToListAsync();
+
+            foreach (ShoppingCartProduct shoppingCartProduct in shoppingCartProducts)
+            {
+                _dbContext.ShoppingCartProducts.Remove(shoppingCartProduct);
+            }
+
             await _dbContext.SaveChangesAsync();
         }
     }

@@ -61,11 +61,25 @@ namespace EShop.Service.Services
             }
         }
 
+        //Calls and logs the "CalculateTotalCartPrice" funtion from the ShoppingCartRepository
         public async Task CalculateTotalCartPrice(int shoppingCartId)
         {
             try
             {
                 await _shoppingCartRepository.CalculateTotalCartPrice(shoppingCartId);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+        }
+
+        //Calls and logs the "ClearCart" funtion from the ShoppingCartRepository
+        public async Task ClearCart(int shoppingCartId)
+        {
+            try
+            {
+                await _shoppingCartRepository.ClearCart(shoppingCartId);
             }
             catch (Exception ex)
             {
