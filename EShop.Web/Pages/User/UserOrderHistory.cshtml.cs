@@ -19,12 +19,11 @@ namespace EShop.Web.Pages.User
 
         public List<OrderDTO> UserOrders { get; set; }
 
+        //Runs when the site loads
         public async Task<IActionResult> OnGet()
         {
             if (HttpContext.Session.GetInt32("_UserId") == null)
             {
-                int tmpId = 1;
-                UserOrders = await _orderService.GetAllOrdersByUser(tmpId);
                 return RedirectToPage();
             }
             else

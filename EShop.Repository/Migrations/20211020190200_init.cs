@@ -133,9 +133,9 @@ namespace EShop.Repository.Migrations
                     OrderId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     OrderDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GetDate()"),
-                    TotalOrderPrice = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
-                    FK_UserInformationId = table.Column<int>(type: "int", nullable: true),
-                    FK_UserId = table.Column<int>(type: "int", nullable: true),
+                    TotalOrderPrice = table.Column<double>(type: "float", nullable: false, defaultValue: 0.0),
+                    FK_UserInformationId = table.Column<int>(type: "int", nullable: false),
+                    FK_UserId = table.Column<int>(type: "int", nullable: false),
                     ProductId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -214,7 +214,7 @@ namespace EShop.Repository.Migrations
             migrationBuilder.InsertData(
                 table: "PriceOffers",
                 columns: new[] { "ProductId", "DateEnding", "DateStarted", "NewPrice", "OfferReason" },
-                values: new object[] { 3, new DateTime(2022, 10, 20, 0, 21, 55, 126, DateTimeKind.Local).AddTicks(8972), new DateTime(2021, 10, 20, 0, 21, 55, 125, DateTimeKind.Local).AddTicks(2144), 24.550000000000001, "Too many bugs ingame" });
+                values: new object[] { 3, new DateTime(2022, 10, 20, 21, 2, 0, 351, DateTimeKind.Local).AddTicks(6776), new DateTime(2021, 10, 20, 21, 2, 0, 349, DateTimeKind.Local).AddTicks(9892), 24.550000000000001, "Too many bugs ingame" });
 
             migrationBuilder.InsertData(
                 table: "ShoppingCarts",

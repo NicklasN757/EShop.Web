@@ -68,5 +68,21 @@ namespace EShop.Service.Services
                 return null;
             }
         }
+
+        //Calls and logs the "GetAllOrdersByUser" funtion from the OrderRepository
+        public async Task<OrderDTO> GetOrderByIdWithAll(int orderId)
+        {
+            try
+            {
+                OrderDTO orderDTO = _mappingService._mapper.Map<OrderDTO>(await _orderRepository.GetOrderByIdWithAll(orderId));
+
+                return orderDTO;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return null;
+            }
+        }
     }
 }

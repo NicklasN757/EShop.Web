@@ -25,7 +25,7 @@ namespace EShop.Web.Pages
         //Other
         public bool LoggedIn { get; set; }
 
-        //Runs when Get is called
+        //Runs when the site loads
         public async Task<IActionResult> OnGet()
         {
             if (HttpContext.Session.GetInt32("_UserId") == null)

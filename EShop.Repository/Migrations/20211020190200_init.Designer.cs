@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EShop.Repository.Migrations
 {
     [DbContext(typeof(EShopContext))]
-    [Migration("20211019222155_init")]
+    [Migration("20211020190200_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -28,10 +28,10 @@ namespace EShop.Repository.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("FK_UserId")
+                    b.Property<int>("FK_UserId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("FK_UserInformationId")
+                    b.Property<int>("FK_UserInformationId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("OrderDate")
@@ -42,10 +42,10 @@ namespace EShop.Repository.Migrations
                     b.Property<int?>("ProductId")
                         .HasColumnType("int");
 
-                    b.Property<int>("TotalOrderPrice")
+                    b.Property<double>("TotalOrderPrice")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasDefaultValue(0);
+                        .HasColumnType("float")
+                        .HasDefaultValue(0.0);
 
                     b.HasKey("OrderId");
 
@@ -108,8 +108,8 @@ namespace EShop.Repository.Migrations
                         new
                         {
                             ProductId = 3,
-                            DateEnding = new DateTime(2022, 10, 20, 0, 21, 55, 126, DateTimeKind.Local).AddTicks(8972),
-                            DateStarted = new DateTime(2021, 10, 20, 0, 21, 55, 125, DateTimeKind.Local).AddTicks(2144),
+                            DateEnding = new DateTime(2022, 10, 20, 21, 2, 0, 351, DateTimeKind.Local).AddTicks(6776),
+                            DateStarted = new DateTime(2021, 10, 20, 21, 2, 0, 349, DateTimeKind.Local).AddTicks(9892),
                             NewPrice = 24.550000000000001,
                             OfferReason = "Too many bugs ingame"
                         });
@@ -358,12 +358,14 @@ namespace EShop.Repository.Migrations
                     b.HasOne("EShop.Repository.Entities.User", "User")
                         .WithMany("Orders")
                         .HasForeignKey("FK_UserId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.HasOne("EShop.Repository.Entities.UserInformation", "UserInformation")
                         .WithMany("Orders")
                         .HasForeignKey("FK_UserInformationId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.HasOne("EShop.Repository.Entities.Product", null)
                         .WithMany("Orders")

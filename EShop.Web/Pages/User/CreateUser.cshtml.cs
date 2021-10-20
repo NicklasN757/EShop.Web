@@ -9,6 +9,7 @@ namespace EShop.Web.Pages.User
 {
     public class CreateUserModel : PageModel
     {
+        //Runs when the site loads
         public void OnGet()
         {
         }

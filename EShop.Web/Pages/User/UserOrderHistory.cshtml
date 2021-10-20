@@ -7,25 +7,25 @@
     <div class="row border-bottom border-primary">
         <h1 class="m-1">Order History</h1>
     </div>
-    <div class="row border border-primary mt-2">
-        <div class="col-8">
+    <div class="row mt-2">
+        <div class="col-10 m-auto">
             @foreach (OrderDTO order in Model.UserOrders)
             {
-                <div class="row border border-primary">
+                <div class="row border border-primary rounded-0 m-1">
                     <div class="col-3 border-right">
                         <label class="form-text">Order Number:</label>
-                        <p>@order.OrderId</p>
+                        <h5>@order.OrderId</h5>
                     </div>
                     <div class="col-3 border-right">
                         <label class="form-text">Order Date:</label>
-                        <p>@order.OrderDate</p>
+                        <h5>@order.OrderDate</h5>
                     </div>
                     <div class="col-3 border-right">
                         <label class="form-text">Order Price:</label>
-                        <p>@order.TotalOrderPrice</p>
+                        <h5>@(order.TotalOrderPrice+"€")</h5>
                     </div>
-                    <div class="col-3">
-                        <a asp-page="OrderDetails" class="btn btn-primary">View Details</a>
+                    <div class="col-3 p-1 m-auto text-center">
+                        <a asp-page="OrderDetails" asp-route-OrderId="@order.OrderId" class="btn btn-primary">View Details</a>
                     </div>
                 </div>
             }

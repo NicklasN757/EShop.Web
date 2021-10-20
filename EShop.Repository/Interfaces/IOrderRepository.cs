@@ -22,5 +22,11 @@ namespace EShop.Repository.Interfaces
         /// </summary>
         /// <returns>A list of orders</returns>
         public Task<List<Order>> GetAllOrdersByUser(int userId);
+
+        /// <summary>
+        /// Gets a order with all realated keys base on orderId
+        /// </summary>
+        /// <returns>A Order</returns>
+        public Task<Order> GetOrderByIdWithAll(int orderId);
     }
 }

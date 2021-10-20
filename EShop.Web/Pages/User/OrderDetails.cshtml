@@ -1,0 +1,47 @@
+﻿@page "{OrderId:int?}"
+@model EShop.Web.Pages.User.OrderDetailsModel
+@{
+}
+
+<div class="container">
+    <div class="row border-bottom border-primary">
+        <h1 class="m-1">Order Details</h1>
+    </div>
+    <div class="row">
+        <div class="col-10  m-auto ">
+            <div class="col-12 border border-primary rounded mt-2">
+                <div class="row border border-primary">
+                    <h4 class="col-3"><b></b>Order Number: <b class="text-muted">@Model.Order.OrderId</b></h4>
+                    <h4 class="col-3">Total Products: <b class="text-muted">@Model.Order.OrderProducts.Count</b></h4>
+                    <h4 class="col-6">Order Date: <b class="text-muted">@Model.Order.OrderDate</b></h4>
+                </div>
+                @foreach (OrderProductDTO product in Model.Order.OrderProducts)
+                {
+                    <div class="row border border-primary">
+                        <div class="col-3 border-right">
+                            <label class="form-text">Product Number:</label>
+                            <h5>@product.Product.ProductId</h5>
+                        </div>
+                        <div class="col-3 border-right">
+                            <label class="form-text">Product Title:</label>
+                            <h5>@product.Product.Name</h5>
+                        </div>
+                        <div class="col-3 border-right">
+                            <label class="form-text">Stock Price:</label>
+                            <h5>@product.Product.Price</h5>
+                        </div>
+                        <div class="col-3 p-1 text-center">
+                            <img src="@("/Img/" + product.Product.ImgUrl)" alt="@product.Product.Name" class="border border-secondary" style="max-height:200px" />
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="col-12 p-0">
+                <div class="col-6 mt-1 p-0">
+                    <a asp-page="UserOrderHistory" class="btn btn-primary">@("< - Back To Order List")</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>

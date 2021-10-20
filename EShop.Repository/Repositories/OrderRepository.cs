@@ -43,10 +43,14 @@ namespace EShop.Repository.Repositories
         //Gets all order realated to a single user
         public async Task<List<Order>> GetAllOrdersByUser(int userId) => await _dbContext.Orders
             .AsNoTracking()
+            .Where(o => o.FK_UserId == userId)
+            .OrderByDescending(o => o.OrderDate)
+            .ToListAsync();
+
+        public async Task<Order> GetOrderByIdWithAll(int orderId) => await _dbContext.Orders
+            .AsNoTracking()
             .Include(o => o.OrderProducts)
             .ThenInclude(op => op.Product)
-            .AsNoTracking()
-            .Where(o => o.FK_UserId == userId)
-            .ToListAsync();
+            .SingleAsync(o => o.OrderId == orderId);
     }
 }

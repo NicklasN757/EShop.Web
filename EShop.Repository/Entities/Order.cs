@@ -13,11 +13,11 @@ namespace EShop.Repository.Entities
         public DateTime OrderDate { get; set; }
 
         [Required]
-        public double  TotalOrderPrice { get; set; }
+        public double TotalOrderPrice { get; set; }
 
         //Foreign keys
-        public int? FK_UserInformationId { get; set; }
-        public int? FK_UserId { get; set; }
+        public int FK_UserInformationId { get; set; }
+        public int FK_UserId { get; set; }
 
         //Navigations Properties
         public UserInformation UserInformation { get; set; }
