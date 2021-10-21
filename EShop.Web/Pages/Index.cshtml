@@ -6,8 +6,13 @@
 
 <div class="text-center container">
     <h3>@Model.WelcomeMeassage</h3>
-    <form class="row input-group" method="get" asp-page-handler="Seach">
-        <input type="text" class="form-control" asp-for="@Model.SeachString"/>
+    <form class="row m-0 input-group" method="get" asp-page-handler="Seach">
+        @*<select class="input-group-prepend border-primary p-1" asp-for="@Model.OrderBy">
+            <option value="0">Default</option>
+            <option value="1">Lowest First</option>
+            <option value="2">Higest First</option>
+        </select>*@
+        <input type="text" class="form-control border-primary" asp-for="@Model.SeachString" />
         <button type="submit" class="input-group-append btn btn-primary">Search</button>
     </form>
     <div class="row">

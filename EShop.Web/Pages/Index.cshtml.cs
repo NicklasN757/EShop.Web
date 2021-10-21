@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace EShop.Web.Pages
@@ -31,6 +32,9 @@ namespace EShop.Web.Pages
         [BindProperty(SupportsGet = true)]
         public string SeachString { get; set; }
 
+        //[BindProperty(SupportsGet = true)]
+        //public int OrderBy { get; set; }
+
         //Runs when the site loads
         public async Task<IActionResult> OnGet()
         {
@@ -47,6 +51,15 @@ namespace EShop.Web.Pages
             }
 
             ProductDTOs = await _productService.GetAllProductsBySeachAsync(SeachString);
+
+            //if (OrderBy == 1)
+            //{
+            //    ProductDTOs.OrderBy(p => p.Price);
+            //}
+            //else if(OrderBy == 2)
+            //{
+            //    ProductDTOs.OrderByDescending(p => p.Price);
+            //}
 
             return Page();
         }
