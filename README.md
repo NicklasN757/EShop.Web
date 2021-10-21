@@ -26,19 +26,11 @@ and the aim for the project is to build a website that can be used as a web shop
 
 ## ER-Diagram
 
-Not made yet  
-
-## Implementation
-
-Not made yet
+![E Shop Database Diagram](Documentation/EShopDatabaseDiagram.png)
 
 ## Class Diagrams
 
-![image info](./Documentation/EShopClassDiagram.png)
-
-## Use of third party libraries
-
-No one used
+![E Shop Class Diagram](Documentation/EShopClassDiagram.png)
 
 ## Responsible People  
 |Name|E-mail|Role|

@@ -24,7 +24,7 @@ namespace EShop.Web.Pages.User
         {
             if (HttpContext.Session.GetInt32("_UserId") == null)
             {
-                return RedirectToPage();
+                return RedirectToPage("UserLogin");
             }
             else
             {

@@ -12,7 +12,7 @@ namespace EShop.Repository.Entities
         public double TotalPrice { get; set; }
 
         //Navigations Properties
-        public User User { get; set; }
         public List<ShoppingCartProduct> ShoppingCartProducts { get; set; }
+        public User User { get; set; }
     }
 }

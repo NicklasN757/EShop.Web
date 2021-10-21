@@ -20,8 +20,9 @@ namespace EShop.Repository.Entities
         public int FK_UserId { get; set; }
 
         //Navigations Properties
+        public List<OrderProduct> OrderProducts { get; set; }
         public UserInformation UserInformation { get; set; }
         public User User { get; set; }
-        public List<OrderProduct> OrderProducts { get; set; }
+        
     }
 }

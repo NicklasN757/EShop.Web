@@ -8,6 +8,47 @@
         <h1 class="m-1">Add New Product</h1>
     </div>
     <div class="row mt-2">
-
+        <form method="post" asp-page-handler="CreateProduct" class="col-8 m-auto ">
+            <div class="row border border-primary rounded-top">
+                <div class="col-12">
+                    <div class="row m-1">
+                        <label class="form-text font-weight-bold">Name:</label>
+                        <input type="text" asp-for="@Model.Name" class="form-control border-primary" />
+                        <span asp-validation-for="@Model.Name"></span>
+                    </div>
+                    <div class="row m-1">
+                        <label class="form-text font-weight-bold">Price:</label>
+                        <input type="text" asp-for="@Model.Price" class="form-control border-primary" />
+                        <span asp-validation-for="@Model.Price"></span>
+                    </div>
+                    <div class="row m-1">
+                        <label class="form-text font-weight-bold">In Stock:</label>
+                        <input type="number" asp-for="@Model.TotalStock" class="form-control border-primary" />
+                        <span asp-validation-for="@Model.TotalStock"></span>
+                    </div>
+                    <div class="row m-1">
+                        <label class="form-text font-weight-bold">Description:</label>
+                        <div class="col-12 p-0 text-center">
+                            <textarea class="border-primary rounded" cols="90" rows="10" asp-for="@Model.Description"></textarea>
+                            <span asp-validation-for="@Model.Description"></span>
+                        </div>
+                    </div>
+                    <div class="row m-1 mb-2">
+                        <label class="form-text font-weight-bold">Image</label>
+                        <input type="file" asp-for="@Model.Image" class="form-control border-primary p-1" />
+                        <span asp-validation-for="@Model.Image"></span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row border border-primary rounded-bottom mt-1">
+                <div class="col-6 text-center p-1">
+                    <a asp-page="../User/UserLogin" class="btn btn-warning text-white col-12">Cancel</a>
+                </div>
+                <div class="col-6 text-center p-1">
+                    <button type="submit" class="btn btn-success col-12">Create</button>
+                </div>
+            </div>
+        </form>
     </div>
 </div>

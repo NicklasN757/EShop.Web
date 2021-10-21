@@ -4,7 +4,64 @@
 }
 
 <div class="container">
-    <div class="row">
-        <h3>Create a user</h3>
+    <div class="row border-bottom border-primary">
+        <h1 class="m-1">Create a user</h1>
     </div>
+    <form method="post" asp-page-handler="CreateUser" class="row mt-2 m-1 border border-primary rounded">
+        <div class="col-6 pb-1 pt-1">
+            <div class="row border-bottom border-primary">
+                <h4 class="m-1">User Login Information</h4>
+            </div>
+            <div class="row m-1">
+                <label class="form-text font-weight-bold">Username:</label>
+                <input type="text" asp-for="@Model.Username" class="form-control border-primary" />
+                <span asp-validation-for="@Model.Username"></span>
+            </div>
+            <div class="row m-1">
+                <label class="form-text font-weight-bold">Pin:</label>
+                <input type="password" asp-for="@Model.Pin" class="form-control border-primary" />
+                <span asp-validation-for="@Model.Pin"></span>
+            </div>
+            <div class="row m-1">
+                <label class="form-text font-weight-bold">Repeat Pin:</label>
+                <input type="password" asp-for="@Model.PinRepeat" class="form-control border-primary" />
+                <span asp-validation-for="@Model.PinRepeat"></span>
+            </div>
+        </div>
+        <div class="col-6 border-left border-primary pb-1 pt-1">
+            <div class="row border-bottom border-primary">
+                <h4 class="m-1">User Order Information</h4>
+            </div>
+            <div class="row m-1">
+                <label class="form-text font-weight-bold">Full Name:</label>
+                <input type="text" asp-for="@Model.FullName" class="form-control border-primary" />
+                <span asp-validation-for="@Model.FullName"></span>
+            </div>
+            <div class="row m-1">
+                <label class="form-text font-weight-bold">City:</label>
+                <input type="text" asp-for="@Model.City" class="form-control border-primary" />
+                <span asp-validation-for="@Model.City"></span>
+            </div>
+            <div class="row m-1">
+                <label class="form-text font-weight-bold">Adress:</label>
+                <input type="text" asp-for="@Model.Adress" class="form-control border-primary" />
+                <span asp-validation-for="@Model.Adress"></span>
+            </div>
+            <div class="row m-1">
+                <label class="form-text font-weight-bold">Email:</label>
+                <input type="email" asp-for="@Model.EMail" class="form-control border-primary" />
+                <span asp-validation-for="@Model.EMail"></span>
+            </div>
+        </div>
+        <div class="col-12 border-top border-primary">
+            <div class="row p-2">
+                <div class="col-6 text-center">
+                    <a asp-page="UserLogin" class="btn btn-warning text-white">Cancel</a>
+                </div>
+                <div class="col-6 text-center">
+                    <button type="submit" class="btn btn-success">SignUp</button>
+                </div>
+            </div>
+        </div>
+    </form>
 </div>

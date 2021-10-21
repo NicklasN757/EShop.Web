@@ -20,8 +20,6 @@ namespace EShop.Repository.Entities
         [Required]
         public string EMail { get; set; }
 
-        //Foreign keys
-
         //Navigations Properties
         public User User { get; set; }
         public List<Order> Orders { get; set; }

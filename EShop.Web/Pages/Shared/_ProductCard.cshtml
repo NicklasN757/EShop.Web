@@ -5,7 +5,14 @@
     <img class="card-img-top border border-primary" src="@("Img/" + Model.ImgUrl)" alt="@Model.Name" />
     <div class="card-body m-0 p-0 ">
         <h5 class="card-header p-1">@Model.Name</h5>
-        <p class="card-text m-1 ">@Model.Description.Substring(0, 75)...</p>
+        @if (Model.Description.Length > 75)
+        {
+            <p class="card-text m-1">@Model.Description.Substring(0, 75)...</p>
+        }
+        else
+        {
+            <p class="card-text m-1">@Model.Description</p>
+        }
     </div>
     @if (Model.PriceOffer == null)
     {

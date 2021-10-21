@@ -19,6 +19,22 @@ namespace EShop.Service.Services
             _userRepository = userRepository;
         }
 
+        //Calls and logs the "CreateAndReturnWithId" funtion from the UserRepository
+        public async Task<int> CreateAndReturnWithId(UserDTO user)
+        {
+            try
+            {
+                int userId = await _userRepository.CreateAndReturnWithId(_mappingService._mapper.Map<User>(user));
+
+                return userId;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return 0;
+            }
+        }
+
         //Calls and logs the "GetUserByIdWithUserInformation" funtion from the UserRepository
         public async Task<UserDTO> GetUserByIdWithUserInformation(int id)
         {

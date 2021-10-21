@@ -57,12 +57,19 @@ namespace EShop.Web.Pages
                 HttpContext.Session.SetString(SessionUserUsername, tmpUser.Username);
                 HttpContext.Session.SetInt32(SessionUserId, tmpUser.UserId);
 
-                return RedirectToPage("/Index");
+                return RedirectToPage();
             }
             else
             {
                 return Page();
             }
+        }
+
+        //Runs when the user is clicking on the logout button
+        public async Task<IActionResult> OnPostLogout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToPage();
         }
     }
 }

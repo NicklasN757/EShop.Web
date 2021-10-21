@@ -26,8 +26,7 @@ namespace EShop.Web.Pages.Product
         {
             if (HttpContext.Session.GetInt32("_UserId") == null)
             {
-                Product = await _productService.GetProductByIdWithPriceOffer(ProductId);
-                //return RedirectToPage("../User/UserLogin");
+                return RedirectToPage("../User/UserLogin");
             }
             else
             {

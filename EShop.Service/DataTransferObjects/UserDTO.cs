@@ -13,8 +13,8 @@ namespace EShop.Service.DataTransferObjects
         public bool IsAdmin { get; set; }
 
         //Navigations Properties
-        public UserInformationDTO UserInformation { get; set; }
         public ShoppingCartDTO ShoppingCart { get; set; }
         public List<OrderDTO> Orders { get; set; }
+        public UserInformationDTO UserInformation { get; set; }
     }
 }

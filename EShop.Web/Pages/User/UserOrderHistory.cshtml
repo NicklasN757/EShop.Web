@@ -22,7 +22,7 @@
                     </div>
                     <div class="col-3 border-right">
                         <label class="form-text">Order Price:</label>
-                        <h5>@(order.TotalOrderPrice+"€")</h5>
+                        <h5>@order.TotalOrderPrice.ToString("#.##")€</h5>
                     </div>
                     <div class="col-3 p-1 m-auto text-center">
                         <a asp-page="OrderDetails" asp-route-OrderId="@order.OrderId" class="btn btn-primary">View Details</a>

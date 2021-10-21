@@ -31,5 +31,14 @@ namespace EShop.Repository.Repositories
                 return false;
             }
         }
+
+        //Create a new entity in the Users table
+        public async Task<int> CreateAndReturnWithId(User user)
+        {
+            _dbContext.Users.Add(user);
+            await _dbContext.SaveChangesAsync();
+
+            return user.UserId;
+        }
     }
 }

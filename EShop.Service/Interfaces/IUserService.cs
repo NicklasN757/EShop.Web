@@ -22,5 +22,11 @@ namespace EShop.Service.Interfaces
         /// </summary>
         /// <returns>A boolean</returns>
         public Task<bool> UserLoginCheck(string username, int pin);
+
+        /// <summary>
+        /// Creates a new user and then returns the id
+        /// </summary>
+        /// <returns>A UserId</returns>
+        public Task<int> CreateAndReturnWithId(UserDTO user);
     }
 }

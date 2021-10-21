@@ -9,7 +9,7 @@ namespace EShop.Service.DataTransferObjects
         public double TotalPrice { get; set; }
 
         //Navigations Properties
-        public UserDTO User { get; set; }
         public List<ShoppingCartProductDTO> ShoppingCartProducts { get; set; }
+        public UserDTO User { get; set; }
     }
 }

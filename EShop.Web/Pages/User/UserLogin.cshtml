@@ -4,26 +4,31 @@
 }
 
 <div class="container">
-    <div class="row">
-        <h3>Login/Register</h3>
+    <div class="row border-bottom border-primary">
+        <h1 class="m-1">Login/Register</h1>
     </div>
     @if (Model.LoggedIn)
     {
-        <form method="post" asp-page-handler="" class="row form-group text-center">
+        <form method="post" asp-page-handler="Logout" class="row form-group text-center mt-2">
             <div class="col-6 m-auto">
-                <p class="form-text">Logged in as <b class="text-primary">@Model.AppUser.Username</b></p>
+                <p class="">Logged in as <b class="text-primary">@Model.AppUser.Username</b></p>
+                <a asp-page="UserOrderHistory" class="btn btn-primary form-control m-1">Your order history</a>
+                @if (Model.AppUser.IsAdmin)
+                {
+                    <a asp-page="../Product/AddProduct" class="btn btn-success form-control m-1">Add New Products</a>
+                }
                 <button type="submit" class="btn btn-danger m-1 row form-control">Logout</button>
             </div>
         </form>
     }
     else
     {
-        <form method="post" asp-page-handler="Login" class="row form-group">
+        <form method="post" asp-page-handler="Login" class="row form-group mt-2">
             <div class="col-7 m-auto">
-                <label class="form-text">Username</label>
+                <label class="form-text font-weight-bold">Username</label>
                 <input type="text" class="form-control border-primary" name="username" />
 
-                <label class="form-text">Pin</label>
+                <label class="form-text font-weight-bold">Pin</label>
                 <input type="password" class="form-control border-primary" name="pin" />
 
                 <button type="submit" class="btn btn-primary form-control mt-3">Login</button>

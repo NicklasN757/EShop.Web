@@ -17,11 +17,9 @@ namespace EShop.Repository.Entities
         [Required]
         public bool IsAdmin { get; set; }
 
-        //Foreign keys
-
         //Navigations Properties
-        public UserInformation UserInformation { get; set; }
         public ShoppingCart ShoppingCart { get; set; }
         public List<Order> Orders { get; set; }
+        public UserInformation UserInformation { get; set; }
     }
 }

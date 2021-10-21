@@ -16,8 +16,8 @@ namespace EShop.Service.DataTransferObjects
         public int? FK_UserId { get; set; }
 
         //Navigations Properties
+        public List<OrderProductDTO> OrderProducts { get; set; }
         public UserInformationDTO UserInformation { get; set; }
         public UserDTO User { get; set; }
-        public List<OrderProductDTO> OrderProducts { get; set; }
     }
 }

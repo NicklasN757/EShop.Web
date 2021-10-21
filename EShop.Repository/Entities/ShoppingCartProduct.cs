@@ -14,7 +14,7 @@ namespace EShop.Repository.Entities
         public int FK_Product { get; set; }
 
         //Navigations Properties
-        public ShoppingCart ShoppingCart { get; set; }
         public Product Product { get; set; }
+        public ShoppingCart ShoppingCart { get; set; }
     }
 }

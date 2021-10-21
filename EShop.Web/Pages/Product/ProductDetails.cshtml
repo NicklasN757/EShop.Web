@@ -10,71 +10,66 @@
     </div>
 
     <div class="row text-center mt-3">
-
-        @if (HttpContext.Session.GetInt32("_UserId") != null)
-        {
-            @if (Model.AppUser.IsAdmin)
+        <div class="col-7 m-auto">
+            @if (HttpContext.Session.GetInt32("_UserId") != null)
             {
-                <div class="col-12 p-0">
-                    <div class="col-6 m-auto border border-primary rounded">
-                        <div class="row border-bottom border-primary">
-                            <h3 class="m-1">Admin Panel</h3>
-                        </div>
-                        <div class="row">
-                            <div class="col-6 text-center">
-                                <a asp-page="EditProduct" asp-route-ProductId="@Model.Product.ProductId" class="btn btn-warning text-white m-1">Update Product</a>
-                            </div>
-                            <div class="col-6 text-center">
-                                <a asp-page="DeleteProduct" asp-route-ProductId="@Model.Product.ProductId" class="btn btn-danger m-1">Delete Product</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            }
-        }
-
-        <div class="col-6 border border-primary mt-1 mr-auto ml-auto rounded ">
-            <div class="row border-bottom border-primary p-1">
-                <h2 class="m-auto font-weight-bolder">@Model.Product.Name</h2>
-            </div>
-            <div class="row border-bottom border-primary bg-dark">
-                <img src="@("/Img/" + Model.Product.ImgUrl)" alt="@Model.Product.Name" class="img-fluid mr-auto ml-auto m-1 border border-secondary" style="max-height:400px" />
-            </div>
-            <div class="row text-left">
-                <p class="m-1 font-weight-bold">@Model.Product.Description</p>
-            </div>
-            <div class="row border border-primary border-right-0 border-left-0 p-1">
-                @if (Model.Product.PriceOffer == null)
+                @if (Model.AppUser.IsAdmin)
                 {
-                    <h4 class="m-auto">@Model.Product.Price€</h4>
+                    <div class="col-12 border border-primary rounded">
+                            <div class="row border-bottom border-primary">
+                                <h3 class="m-1">Admin Panel</h3>
+                            </div>
+                            <div class="row">
+                                <div class="col-6 text-center p-1">
+                                    <a asp-page="EditProduct" asp-route-ProductId="@Model.Product.ProductId" class="btn btn-warning text-white col-12">Update Product</a>
+                                </div>
+                                <div class="col-6 text-center p-1">
+                                    <a asp-page="DeleteProduct" asp-route-ProductId="@Model.Product.ProductId" class="btn btn-danger col-12">Delete Product</a>
+                                </div>
+                            </div>
+                    </div>
+                }
+            }
+
+            <div class="col-12 border border-primary mt-1 mr-auto ml-auto rounded ">
+                <div class="row border-bottom border-primary p-1">
+                    <h2 class="m-auto font-weight-bolder">@Model.Product.Name</h2>
+                </div>
+                <div class="row border-bottom border-primary bg-dark">
+                    <img src="@("/Img/" + Model.Product.ImgUrl)" alt="@Model.Product.Name" class="img-fluid mr-auto ml-auto m-1 border border-secondary" style="max-height:400px" />
+                </div>
+                <div class="row text-left">
+                    <p class="m-1 font-weight-bold">@Model.Product.Description</p>
+                </div>
+                <div class="row border border-primary border-right-0 border-left-0 p-1">
+                    @if (Model.Product.PriceOffer == null)
+                    {
+                        <h4 class="m-auto">@Model.Product.Price€</h4>
+                    }
+                    else
+                    {
+                        <p class="col-12 m-0 p-0 text-warning">@Model.Product.PriceOffer.OfferReason</p>
+                        <h4 class="col-6 text-right m-0 p-0"><del>@Model.Product.Price€</del>&nbsp;-&nbsp;</h4>
+                        <h4 class="col-6 text-left text-success m-0 p-0">@Model.Product.PriceOffer.NewPrice€</h4>
+                    }
+                </div>
+                @if (HttpContext.Session.GetInt32("_UserId") == null)
+                {
+                    <div class="row">
+                        <a class="btn btn-primary col-12 rounded-0 rounded-bottom rounded-left rounded-right" asp-page="/User/UserLogin">Login</a>
+                    </div>
                 }
                 else
                 {
-                    <p class="col-12 m-0 p-0 text-warning">@Model.Product.PriceOffer.OfferReason</p>
-                    <h4 class="col-6 text-right m-0 p-0"><del>@Model.Product.Price€</del>&nbsp;-&nbsp;</h4>
-                    <h4 class="col-6 text-left text-success m-0 p-0">@Model.Product.PriceOffer.NewPrice€</h4>
+                    <form method="post" asp-page-handler="AddToCart" class="row">
+                        <button type="submit" name="productId" value="@Model.Product.ProductId" class="btn btn-success col-12 rounded-0 rounded-bottom rounded-left rounded-right">Add to cart</button>
+                    </form>
                 }
             </div>
-            @if (HttpContext.Session.GetInt32("_UserId") == null)
-            {
-                <div class="row">
-                    <p class="text-danger col-12 mb-0">- Not Logged in. Login to buy -</p>
-                    <a class="btn btn-primary col-12 rounded-0 rounded-bottom rounded-left rounded-right" asp-page="/User/CreateUser">Create account</a>
-                </div>
-            }
-            else
-            {
-                <form method="post" asp-page-handler="AddToCart" class="row">
-                    <button type="submit" name="productId" value="@Model.Product.ProductId" class="btn btn-success col-12 rounded-0 rounded-bottom rounded-left rounded-right">Add to cart</button>
-                </form>
-            }
-        </div>
 
-        <div class="col-12 mt-2 p-0">
-            <div class="col-6 m-auto text-left p-0">
+            <div class="col-12 mt-1 p-0 text-left">
                 <a asp-page="../Index" class="btn btn-primary">@("< - Back To Product List")</a>
             </div>
         </div>
-
     </div>
 </div>

@@ -14,6 +14,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{D96EA62F-3FC5-41C9-8959-11B72419B476}"
 	ProjectSection(SolutionItems) = preProject
 		Documentation\EShopClassDiagram.png = Documentation\EShopClassDiagram.png
+		Documentation\EShopDatabaseDiagram.png = Documentation\EShopDatabaseDiagram.png
 		README.md = README.md
 	EndProjectSection
 EndProject

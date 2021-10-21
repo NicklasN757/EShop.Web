@@ -27,11 +27,8 @@ namespace EShop.Repository.Entities
         [Required]
         public bool IsDeleted { get; set; }
 
-        //Foreign keys
-
         //Navigations Properties
         public PriceOffer PriceOffer { get; set; }
-        public List<Order> Orders { get; set; }
         public List<OrderProduct> OrderProducts { get; set; }
         public List<ShoppingCartProduct> ShoppingCartProducts { get; set; }
     }
