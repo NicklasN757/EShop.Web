@@ -18,6 +18,7 @@ namespace EShop.Web.Pages.Product
             _userService = userService;
         }
 
+        [BindProperty]
         public ProductDTO Product { get; set; }
 
         //Runs when the site loads
@@ -25,7 +26,8 @@ namespace EShop.Web.Pages.Product
         {
             if (HttpContext.Session.GetInt32("_UserId") == null)
             {
-                return RedirectToPage("../User/UserLogin");
+                Product = await _productService.GetProductByIdWithPriceOffer(ProductId);
+                //return RedirectToPage("../User/UserLogin");
             }
             else
             {
@@ -40,6 +42,20 @@ namespace EShop.Web.Pages.Product
             }
 
             return Page();
+        }
+
+        //Updates the product
+        public async Task<IActionResult> OnPostUpdateProduct(int ProductId)
+        {
+            ProductDTO productDTO = await _productService.GetProductByIdWithPriceOffer(ProductId);
+            productDTO.Name = Product.Name;
+            productDTO.Description = Product.Description;
+            productDTO.Price = Product.Price;
+            productDTO.TotalStock = Product.TotalStock;
+
+            await _productService.UpdateAsync(productDTO);
+
+            return RedirectToPage("ProductDetails", new { ProductId = ProductId });
         }
     }
 }

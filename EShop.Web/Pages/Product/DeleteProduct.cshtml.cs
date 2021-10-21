@@ -19,7 +19,7 @@ namespace EShop.Web.Pages.Product
         }
 
         public ProductDTO Product { get; set; }
-        
+
         //Runs when the site loads
         public async Task<IActionResult> OnGet(int ProductId)
         {
@@ -36,10 +36,17 @@ namespace EShop.Web.Pages.Product
                 }
 
                 Product = await _productService.GetByIdAsync(ProductId);
-
             }
 
             return Page();
+        }
+
+        //Deletes the Product
+        public async Task<IActionResult> OnPostConfirmProductDelete(int ProductId)
+        {
+            await _productService.SoftDeleteProduct(ProductId);
+
+            return RedirectToPage("../Index");
         }
     }
 }

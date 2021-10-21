@@ -23,6 +23,7 @@ namespace EShop.Repository.Repositories
                     .Include(p => p.PriceOffer)
                     .OrderBy(p => p.PriceOffer)
                     .ThenBy(p => p.Name)
+                    .Where(p => p.IsDeleted == false)
                     .ToListAsync();
             }
             else
@@ -32,6 +33,7 @@ namespace EShop.Repository.Repositories
                     .Include(p => p.PriceOffer)
                     .Where(p => p.Name.Contains(seachString))
                     .OrderBy(p => p.Name)
+                    .Where(p => p.IsDeleted == false)
                     .ToListAsync();
             }
         }
@@ -41,5 +43,15 @@ namespace EShop.Repository.Repositories
             .AsNoTracking()
             .Include(p => p.PriceOffer)
             .SingleAsync(p => p.ProductId == id);
+
+        //Soft deletes a specific entity from the Products table
+        public async Task SoftDeleteProduct(int productId)
+        {
+            Product product = await _dbContext.Products.AsNoTracking().SingleAsync(p => p.ProductId == productId);
+            product.IsDeleted = true;
+
+            _dbContext.Products.Update(product);
+            await _dbContext.SaveChangesAsync();
+        }
     }
 }

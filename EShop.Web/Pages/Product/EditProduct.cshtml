@@ -8,6 +8,36 @@
         <h1 class="m-1">Update Product</h1>
     </div>
     <div class="row mt-2">
-
+        <form method="post" asp-page-handler="UpdateProduct" class="col-10 m-auto border border-primary rounded">
+            <div class="row border-bottom border-primary">
+                <h4 class="m-1">Update Product: @Model.Product.ProductId</h4>
+            </div>
+            <div class="row m-1">
+                <label class="form-text">Name:</label>
+                <input class="form-control border-primary" type="text" asp-for="@Model.Product.Name" />
+            </div>
+            <div class="row m-1">
+                <label class="form-text">Price(€):</label>
+                <input class="form-control border-primary" type="text" asp-for="@Model.Product.Price" />
+            </div>
+            <div class="row m-1">
+                <label class="form-text">Total Stock:</label>
+                <input class="form-control border-primary" type="number" asp-for="@Model.Product.TotalStock" />
+            </div>
+            <div class="row m-1">
+                <label class="form-text">Description:</label>
+                <div class="col-12 p-0 text-center">
+                    <textarea class="border-primary rounded" cols="115" rows="10" asp-for="@Model.Product.Description"></textarea>
+                </div>
+            </div>
+            <div class="row border-top border-primary">
+                <div class="col-6 text-center mt-2 mb-2">
+                    <a asp-page="ProductDetails" asp-route-ProductId="@Model.Product.ProductId" class="btn btn-warning">Cancel</a>
+                </div>
+                <div class="col-6 text-center mt-2 mb-2">
+                    <button type="submit" class="btn btn-success">Save Changes</button>
+                </div>
+            </div>
+        </form>
     </div>
 </div>

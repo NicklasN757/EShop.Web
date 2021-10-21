@@ -11,18 +11,27 @@ namespace EShop.Web.Pages
     {
         private readonly IProductService _productService;
         private readonly IShoppingCartService _shoppingCartService;
+        private readonly IUserService _userService;
 
-        public ProductDetailsModel(IProductService productService, IShoppingCartService shoppingCartService)
+        public ProductDetailsModel(IProductService productService, IShoppingCartService shoppingCartService, IUserService userService)
         {
             _productService = productService;
             _shoppingCartService = shoppingCartService;
+            _userService = userService;
         }
 
         public ProductDTO Product { get; set; }
+        public UserDTO AppUser { get; set; }
 
         //Runs when the site loads
         public async Task<IActionResult> OnGet(int ProductId)
         {
+            if (HttpContext.Session.GetInt32("_UserId") != null)
+            {
+                int tmpId = (int)HttpContext.Session.GetInt32("_UserId");
+                AppUser = await _userService.GetByIdAsync(tmpId);
+            }
+
             Product = await _productService.GetProductByIdWithPriceOffer(ProductId);
 
             return Page();

@@ -51,5 +51,18 @@ namespace EShop.Service.Services
                 return null;
             }
         }
+
+        //Calls and logs the "GetProductByIdWithPriceOffer" funtion from the ProductRepository
+        public async Task SoftDeleteProduct(int productId)
+        {
+            try
+            {
+                await _productRepository.SoftDeleteProduct(productId);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+        }
     }
 }

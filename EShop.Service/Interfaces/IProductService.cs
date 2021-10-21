@@ -17,5 +17,10 @@ namespace EShop.Service.Interfaces
         /// </summary>
         /// <returns>A Product</returns>
         public Task<ProductDTO> GetProductByIdWithPriceOffer(int id);
+
+        /// <summary>
+        /// Soft deletes a specific product based on productId 
+        /// </summary>
+        public Task SoftDeleteProduct(int productId);
     }
 }

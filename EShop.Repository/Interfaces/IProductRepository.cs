@@ -17,5 +17,10 @@ namespace EShop.Repository.Interfaces
         /// </summary>
         /// <returns>A Product</returns>
         public Task<Product> GetProductByIdWithPriceOffer(int id);
+
+        /// <summary>
+        /// Soft deletes a specific product based on productId 
+        /// </summary>
+        public Task SoftDeleteProduct(int productId);
     }
 }
