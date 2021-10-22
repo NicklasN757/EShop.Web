@@ -13,7 +13,7 @@ namespace EShop.Repository.Repositories
         private readonly EShopContext _dbContext;
         public OrderRepository(EShopContext eShopContext) : base(eShopContext) => _dbContext = eShopContext;
 
-        //Converts a list of ShoppingCartProduct entities ind to ProductOrder entities
+        //Converts a list of ShoppingCartProduct entities into ProductOrder entities
         public async Task<List<OrderProduct>> ConvertShoppingCartToOrder(List<ShoppingCartProduct> shoppingCartProducts, int orderId)
         {
             List<OrderProduct> orderProducts = new();
