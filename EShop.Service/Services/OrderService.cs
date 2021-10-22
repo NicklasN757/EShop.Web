@@ -28,11 +28,13 @@ namespace EShop.Service.Services
                 List<OrderProductDTO> orderProductDTOs = _mappingService._mapper.Map<List<OrderProductDTO>>(
                     await _orderRepository.ConvertShoppingCartToOrder(_mappingService._mapper.Map<List<ShoppingCartProduct>>(shoppingCartProducts), orderId));
 
+                LogInformation("Successfully converted the ShoppingCart to a Order.");
+
                 return orderProductDTOs;
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
+                LogError("Failed to convert the ShoppingCart to a Order - ", ex);
                 return null;
             }
         }
@@ -44,11 +46,14 @@ namespace EShop.Service.Services
             {
                 OrderDTO orderDTO = _mappingService._mapper.Map<OrderDTO>(await _orderRepository.CreateAndReturnOrder(_mappingService._mapper.Map<Order>(newOrder)));
 
+                LogInformation($"Successfully created and returned a new Order - Order: {newOrder}");
+
                 return orderDTO;
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
+                LogError($"Failed to create and return a new Order - Order: {newOrder} - ", ex);
+
                 return null;
             }
         }
@@ -60,11 +65,14 @@ namespace EShop.Service.Services
             {
                 List<OrderDTO> orderDTOs = _mappingService._mapper.Map<List<OrderDTO>>(await _orderRepository.GetAllOrdersByUser(userId));
 
+                LogInformation($"Successfully retrieved all orders with the giving userId - UserId: {userId}.");
+
                 return orderDTOs;
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
+                LogError($"Failed to retrieved all orders with the giving userId - UserId: {userId} - ", ex);
+
                 return null;
             }
         }
@@ -76,11 +84,14 @@ namespace EShop.Service.Services
             {
                 OrderDTO orderDTO = _mappingService._mapper.Map<OrderDTO>(await _orderRepository.GetOrderByIdWithAll(orderId));
 
+                LogInformation($"Successfully retrieved a order and all its realations with the giving OrderId - OrderId: {orderId}.");
+
                 return orderDTO;
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
+                LogError($"Failed to retrieved a order and all its realations with the giving OrderId - OrderId: {orderId} - ", ex);
+
                 return null;
             }
         }

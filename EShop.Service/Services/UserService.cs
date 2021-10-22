@@ -26,11 +26,14 @@ namespace EShop.Service.Services
             {
                 int userId = await _userRepository.CreateAndReturnWithId(_mappingService._mapper.Map<User>(user));
 
+                LogInformation($"Successfully created and returned the id of a new user - User: {user}");
+
                 return userId;
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
+                LogError($"Failed to create and return the id of a new user - User: {user} - ", ex);
+
                 return 0;
             }
         }
@@ -42,11 +45,14 @@ namespace EShop.Service.Services
             {
                 UserDTO userDTO = _mappingService._mapper.Map<UserDTO>(await _userRepository.GetUserByIdWithUserInformation(id));
 
+                LogInformation($"Successfully retrieved a User and its UserInformation with the giving id - Id: {id}.");
+
                 return userDTO;
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
+                LogError($"Failed to retrieve a User and its UserInformation with the giving id - Id: {id}", ex);
+
                 return null;
             }
         }
@@ -58,11 +64,14 @@ namespace EShop.Service.Services
             {
                 UserDTO userDTO = _mappingService._mapper.Map<UserDTO>(await _userRepository.GetUserByUsername(username));
 
+                LogInformation($"Successfully retrieved a User and its UserInformation with the giving username - Username: {username}.");
+
                 return userDTO;
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
+                LogError($"Failed to retrieve a User and its UserInformation with the giving username - Username: {username} - ", ex);
+
                 return null;
             }
         }
@@ -74,11 +83,14 @@ namespace EShop.Service.Services
             {
                 bool userIsLegit = await _userRepository.UserLoginCheck(username, pin);
 
+                LogInformation($"Successfully checked if the giving Username and Pin exists in the Users table in the database - Uername: {username}, Pin: {pin}.");
+
                 return userIsLegit;
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
+                LogError($"Failed to check if the giving Username and Pin exists in the Users table in the database - Uername: {username}, Pin: {pin} - ", ex);
+
                 return false;
             }
         }

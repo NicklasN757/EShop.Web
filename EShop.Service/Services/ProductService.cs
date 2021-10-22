@@ -27,11 +27,14 @@ namespace EShop.Service.Services
             {
                 List<ProductDTO> productDTOs = _mappingService._mapper.Map<List<ProductDTO>>(await _productRepository.GetAllProductsBySeachAsync(seachString));
 
+                LogInformation($"Successfully retrieved all Products with the giving seachString - SeachString: {seachString}.");
+
                 return productDTOs;
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
+                LogError($"Failed to retrieved all Products with the giving seachString - SeachString: {seachString} - ", ex);
+
                 return null;
             }
         }
@@ -43,11 +46,14 @@ namespace EShop.Service.Services
             {
                 ProductDTO productDTO = _mappingService._mapper.Map<ProductDTO>(await _productRepository.GetProductByIdWithPriceOffer(id));
 
+                LogInformation($"Successfully retrieved a Product and its PriceOffer with the giving id - Id: {id}.");
+
                 return productDTO;
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
+                LogError($"Failed to retrieved a Product and its PriceOffer with the giving id - Id: {id} - ", ex);
+
                 return null;
             }
         }
@@ -58,10 +64,12 @@ namespace EShop.Service.Services
             try
             {
                 await _productRepository.SoftDeleteProduct(productId);
+
+                LogInformation($"Successfully soft deleted a Product with the giving productId - ProductId: {productId}.");
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
+                LogError($"Failed to soft delete a Product with the giving productId - ProductId: {productId} - ", ex);
             }
         }
     }

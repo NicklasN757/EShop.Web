@@ -26,11 +26,14 @@ namespace EShop.Service.Services
             {
                 ShoppingCartDTO shoppingCartDTO = _mappingService._mapper.Map<ShoppingCartDTO>(await _shoppingCartRepository.GetShoppingCartByUser(userId));
 
+                LogInformation($"Successfully retrieved a ShoppingCart with the giving userId - UserId: {userId}.");
+
                 return shoppingCartDTO;
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
+                LogError($"Failed to retrieved a ShoppingCart with the giving userId - UserId: {userId} - ", ex);
+
                 return null;
             }
         }
@@ -41,10 +44,12 @@ namespace EShop.Service.Services
             try
             {
                 await _shoppingCartRepository.AddProductToShoppingCart(productId, shoppingCartId);
+
+                LogInformation($"Successfully added a new Product to the shoppingCart with the giving information - Information - ProductId: {productId}, ShoppingCartId: {shoppingCartId}.");
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
+                LogError($"Failed to add a new Product to the shoppingCart with the giving information - Information - ProductId: {productId}, ShoppingCartId: {shoppingCartId} - ", ex);
             }
         }
 
@@ -54,10 +59,12 @@ namespace EShop.Service.Services
             try
             {
                 await _shoppingCartRepository.RemoveProductFromShoppingCart(shoppingCartProductId);
+
+                LogInformation($"Successfully removed a Product from the shoppingCart with the giving shoppingCartProductId - ShoppingCartProductId: {shoppingCartProductId}.");
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
+                LogError($"Failed to remove a Product from the shoppingCart with the giving shoppingCartProductId - ShoppingCartProductId: {shoppingCartProductId} - ", ex);
             }
         }
 
@@ -67,10 +74,12 @@ namespace EShop.Service.Services
             try
             {
                 await _shoppingCartRepository.CalculateTotalCartPrice(shoppingCartId);
+
+                LogInformation($"Successfully calculated the total cart price with the giving shoppingCartId - ShoppingCartId: {shoppingCartId}.");
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
+                LogError($"Failed to calculate the total cart price with the giving shoppingCartId - ShoppingCartId: {shoppingCartId} - ", ex);
             }
         }
 
@@ -80,10 +89,12 @@ namespace EShop.Service.Services
             try
             {
                 await _shoppingCartRepository.ClearCart(shoppingCartId);
+
+                LogInformation($"Successfully cleared the cart with the giving shoppingCartId - ShoppingCartId: {shoppingCartId}");
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
+                LogError($"Failed to clear the cart with the giving shoppingCartId - ShoppingCartId: {shoppingCartId} - ", ex);
             }
         }
     }

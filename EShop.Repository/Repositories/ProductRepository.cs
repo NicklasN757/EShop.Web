@@ -21,8 +21,8 @@ namespace EShop.Repository.Repositories
                 return await _dbContext.Products
                     .AsNoTracking()
                     .Include(p => p.PriceOffer)
-                    .OrderBy(p => p.PriceOffer)
-                    .ThenBy(p => p.Name)
+                    .OrderByDescending(p => p.PriceOffer)
+                    .ThenBy(p => p.Price)
                     .Where(p => p.IsDeleted == false)
                     .ToListAsync();
             }
@@ -32,7 +32,8 @@ namespace EShop.Repository.Repositories
                     .AsNoTracking()
                     .Include(p => p.PriceOffer)
                     .Where(p => p.Name.Contains(seachString))
-                    .OrderBy(p => p.Name)
+                    .OrderByDescending(p => p.PriceOffer)
+                    .ThenBy(p => p.Price)
                     .Where(p => p.IsDeleted == false)
                     .ToListAsync();
             }
