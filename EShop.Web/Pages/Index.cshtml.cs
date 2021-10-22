@@ -32,34 +32,34 @@ namespace EShop.Web.Pages
         [BindProperty(SupportsGet = true)]
         public string SeachString { get; set; }
 
-        //[BindProperty(SupportsGet = true)]
-        //public int OrderBy { get; set; }
+        [BindProperty(SupportsGet = true)]
+        public int OrderBy { get; set; }
 
         //Runs when the site loads
         public async Task<IActionResult> OnGet()
         {
             if (HttpContext.Session.GetInt32("_UserId") == null)
             {
-                WelcomeMeassage = "Hello and welcome to my shop please make a account or login to buy.";
+                WelcomeMeassage = "Hello and welcome to Blue Gaming please make a account or login to buy.";
             }
             else
             {
                 int tmpId = (int)HttpContext.Session.GetInt32("_UserId");
                 UserInformationDTO tmpUserInfo = await _userInformationService.GetByIdAsync(tmpId);
 
-                WelcomeMeassage = "Hello " + tmpUserInfo.FullName + " and welcome back to my shop.";
+                WelcomeMeassage = "Hello " + tmpUserInfo.FullName + " and welcome back to Blue Gaming.";
             }
 
             ProductDTOs = await _productService.GetAllProductsBySeachAsync(SeachString);
 
-            //if (OrderBy == 1)
-            //{
-            //    ProductDTOs.OrderBy(p => p.Price);
-            //}
-            //else if(OrderBy == 2)
-            //{
-            //    ProductDTOs.OrderByDescending(p => p.Price);
-            //}
+            if (OrderBy == 1)
+            {
+                ProductDTOs.OrderBy(p => p.Price);
+            }
+            else if (OrderBy == 2)
+            {
+                ProductDTOs.OrderByDescending(p => p.Price);
+            }
 
             return Page();
         }
