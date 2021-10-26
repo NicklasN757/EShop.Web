@@ -26,6 +26,10 @@ namespace EShop.Api.Controllers
         [Route("{id}")]
         public async Task<ProductDTO> GetProduct(int id) => await _productService.GetByIdAsync(id);
 
+        [HttpGet]
+        [Route("{searchString}")]
+        public async Task<List<ProductDTO>> GetProductBySearch(string searchString) => await _productService.GetAllProductsBySeachAsync(searchString);
+
         [HttpPut]
         [Route("Update")]
         public async Task<IActionResult> UpdateProduct(ProductModel productModel)
