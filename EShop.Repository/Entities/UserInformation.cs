@@ -7,16 +7,12 @@ namespace EShop.Repository.Entities
     {
         [Required]
         public int UserId { get; set; }
-
         [Required]
         public string FullName { get; set; }
-
         [Required]
         public string City { get; set; }
-
         [Required]
         public string Adress { get; set; }
-
         [Required]
         public string EMail { get; set; }
 

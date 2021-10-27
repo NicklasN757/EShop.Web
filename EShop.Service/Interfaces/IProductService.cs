@@ -16,7 +16,7 @@ namespace EShop.Service.Interfaces
         /// Get a specefic entity with PriceOffer based on id
         /// </summary>
         /// <returns>A Product</returns>
-        public Task<ProductDTO> GetProductByIdWithPriceOffer(int id);
+        public Task<ProductDTO> GetProductByIdWithAll(int id);
 
         /// <summary>
         /// Soft deletes a specific product based on productId 

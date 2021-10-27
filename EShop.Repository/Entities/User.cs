@@ -7,13 +7,10 @@ namespace EShop.Repository.Entities
     {
         [Required]
         public int UserId { get; set; }
-
         [Required]
         public string Username { get; set; }
-
         [Required]
         public int Pin { get; set; }
-
         [Required]
         public bool IsAdmin { get; set; }
 

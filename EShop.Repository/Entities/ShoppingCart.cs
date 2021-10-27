@@ -7,7 +7,6 @@ namespace EShop.Repository.Entities
     {
         [Required]
         public int ShoppingCartId { get; set; }
-
         [Required]
         public double TotalPrice { get; set; }
 

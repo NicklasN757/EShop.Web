@@ -37,9 +37,6 @@ namespace EShop.Repository.Migrations
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("GetDate()");
 
-                    b.Property<int?>("ProductId")
-                        .HasColumnType("int");
-
                     b.Property<double>("TotalOrderPrice")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("float")
@@ -50,8 +47,6 @@ namespace EShop.Repository.Migrations
                     b.HasIndex("FK_UserId");
 
                     b.HasIndex("FK_UserInformationId");
-
-                    b.HasIndex("ProductId");
 
                     b.ToTable("Orders");
                 });
@@ -106,8 +101,8 @@ namespace EShop.Repository.Migrations
                         new
                         {
                             ProductId = 3,
-                            DateEnding = new DateTime(2022, 10, 20, 23, 22, 33, 201, DateTimeKind.Local).AddTicks(4220),
-                            DateStarted = new DateTime(2021, 10, 20, 23, 22, 33, 199, DateTimeKind.Local).AddTicks(6939),
+                            DateEnding = new DateTime(2022, 10, 27, 17, 20, 33, 833, DateTimeKind.Local).AddTicks(5710),
+                            DateStarted = new DateTime(2021, 10, 27, 17, 20, 33, 831, DateTimeKind.Local).AddTicks(8155),
                             NewPrice = 24.550000000000001,
                             OfferReason = "Too many bugs ingame"
                         });
@@ -124,6 +119,7 @@ namespace EShop.Repository.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ImgUrl")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("InStock")
@@ -208,6 +204,66 @@ namespace EShop.Repository.Migrations
                         });
                 });
 
+            modelBuilder.Entity("EShop.Repository.Entities.ProductTag", b =>
+                {
+                    b.Property<int>("ProductTagId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("FK_Product")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FK_Tag")
+                        .HasColumnType("int");
+
+                    b.HasKey("ProductTagId");
+
+                    b.HasIndex("FK_Product");
+
+                    b.HasIndex("FK_Tag");
+
+                    b.ToTable("ProductTag");
+
+                    b.HasData(
+                        new
+                        {
+                            ProductTagId = 1,
+                            FK_Product = 1,
+                            FK_Tag = 2
+                        },
+                        new
+                        {
+                            ProductTagId = 2,
+                            FK_Product = 2,
+                            FK_Tag = 9
+                        },
+                        new
+                        {
+                            ProductTagId = 3,
+                            FK_Product = 2,
+                            FK_Tag = 10
+                        },
+                        new
+                        {
+                            ProductTagId = 4,
+                            FK_Product = 3,
+                            FK_Tag = 10
+                        },
+                        new
+                        {
+                            ProductTagId = 5,
+                            FK_Product = 4,
+                            FK_Tag = 2
+                        },
+                        new
+                        {
+                            ProductTagId = 6,
+                            FK_Product = 5,
+                            FK_Tag = 1
+                        });
+                });
+
             modelBuilder.Entity("EShop.Repository.Entities.ShoppingCart", b =>
                 {
                     b.Property<int>("ShoppingCartId")
@@ -260,6 +316,74 @@ namespace EShop.Repository.Migrations
                     b.HasIndex("FK_ShoppingCart");
 
                     b.ToTable("ShoppingCartProducts");
+                });
+
+            modelBuilder.Entity("EShop.Repository.Entities.Tag", b =>
+                {
+                    b.Property<int>("TagId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("TagName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("TagId");
+
+                    b.ToTable("Tags");
+
+                    b.HasData(
+                        new
+                        {
+                            TagId = 1,
+                            TagName = "Action"
+                        },
+                        new
+                        {
+                            TagId = 2,
+                            TagName = "Action-adventure"
+                        },
+                        new
+                        {
+                            TagId = 3,
+                            TagName = "Adventure"
+                        },
+                        new
+                        {
+                            TagId = 4,
+                            TagName = "Role-playing"
+                        },
+                        new
+                        {
+                            TagId = 5,
+                            TagName = "Simulation"
+                        },
+                        new
+                        {
+                            TagId = 6,
+                            TagName = "Strategy"
+                        },
+                        new
+                        {
+                            TagId = 7,
+                            TagName = "Sports"
+                        },
+                        new
+                        {
+                            TagId = 8,
+                            TagName = "MMO"
+                        },
+                        new
+                        {
+                            TagId = 9,
+                            TagName = "Sandbox"
+                        },
+                        new
+                        {
+                            TagId = 10,
+                            TagName = "Open world"
+                        });
                 });
 
             modelBuilder.Entity("EShop.Repository.Entities.User", b =>
@@ -375,10 +499,6 @@ namespace EShop.Repository.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("EShop.Repository.Entities.Product", null)
-                        .WithMany("Orders")
-                        .HasForeignKey("ProductId");
-
                     b.Navigation("User");
 
                     b.Navigation("UserInformation");
@@ -412,6 +532,25 @@ namespace EShop.Repository.Migrations
                         .IsRequired();
 
                     b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("EShop.Repository.Entities.ProductTag", b =>
+                {
+                    b.HasOne("EShop.Repository.Entities.Product", "Product")
+                        .WithMany("ProductTags")
+                        .HasForeignKey("FK_Product")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("EShop.Repository.Entities.Tag", "Tag")
+                        .WithMany("ProductsTags")
+                        .HasForeignKey("FK_Tag")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+
+                    b.Navigation("Tag");
                 });
 
             modelBuilder.Entity("EShop.Repository.Entities.ShoppingCart", b =>
@@ -464,9 +603,9 @@ namespace EShop.Repository.Migrations
                 {
                     b.Navigation("OrderProducts");
 
-                    b.Navigation("Orders");
-
                     b.Navigation("PriceOffer");
+
+                    b.Navigation("ProductTags");
 
                     b.Navigation("ShoppingCartProducts");
                 });
@@ -474,6 +613,11 @@ namespace EShop.Repository.Migrations
             modelBuilder.Entity("EShop.Repository.Entities.ShoppingCart", b =>
                 {
                     b.Navigation("ShoppingCartProducts");
+                });
+
+            modelBuilder.Entity("EShop.Repository.Entities.Tag", b =>
+                {
+                    b.Navigation("ProductsTags");
                 });
 
             modelBuilder.Entity("EShop.Repository.Entities.User", b =>

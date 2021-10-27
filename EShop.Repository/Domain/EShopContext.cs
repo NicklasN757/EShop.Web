@@ -21,7 +21,6 @@ namespace EShop.Repository.Domain
             //Property
             modelBuilder.Entity<Order>().Property(o => o.OrderDate).HasDefaultValueSql("GetDate()");
             modelBuilder.Entity<Order>().Property(o => o.TotalOrderPrice).HasDefaultValue(0.0);
-
             //Data
             #endregion
 
@@ -68,6 +67,25 @@ namespace EShop.Repository.Domain
                 );
             #endregion
 
+            #region ProductTag table
+            //Keys And Relations
+            modelBuilder.Entity<ProductTag>().HasKey(pt => pt.ProductTagId);
+            modelBuilder.Entity<ProductTag>().HasOne(pt => pt.Product).WithMany(pt => pt.ProductTags).HasForeignKey(pt => pt.FK_Product).OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<ProductTag>().HasOne(pt => pt.Tag).WithMany(pt => pt.ProductsTags).HasForeignKey(pt => pt.FK_Tag).OnDelete(DeleteBehavior.Cascade);
+
+            //Property
+
+            //Data
+            modelBuilder.Entity<ProductTag>().HasData(
+                new ProductTag { ProductTagId = 1, FK_Product = 1, FK_Tag = 2},
+                new ProductTag { ProductTagId = 2, FK_Product = 2, FK_Tag = 9},
+                new ProductTag { ProductTagId = 3, FK_Product = 2, FK_Tag = 10},
+                new ProductTag { ProductTagId = 4, FK_Product = 3, FK_Tag = 10},
+                new ProductTag { ProductTagId = 5, FK_Product = 4, FK_Tag = 2},
+                new ProductTag { ProductTagId = 6, FK_Product = 5, FK_Tag = 1}
+                );
+            #endregion
+
             #region ShoppingCart table
             //Keys And Relations
             modelBuilder.Entity<ShoppingCart>().HasKey(sc => sc.ShoppingCartId);
@@ -84,7 +102,7 @@ namespace EShop.Repository.Domain
                 );
             #endregion
 
-            #region ShoppingCart table
+            #region ShoppingCartProduct table
             //Keys And Relations
             modelBuilder.Entity<ShoppingCartProduct>().HasKey(scp => scp.ShoppingCartProductId);
             modelBuilder.Entity<ShoppingCartProduct>().HasOne(scp => scp.ShoppingCart).WithMany(sc => sc.ShoppingCartProducts).HasForeignKey(scp => scp.FK_ShoppingCart).OnDelete(DeleteBehavior.Cascade);
@@ -93,6 +111,27 @@ namespace EShop.Repository.Domain
             //Property
 
             //Data
+            #endregion
+
+            #region Tag table
+            //Keys And Relations
+            modelBuilder.Entity<Tag>().HasKey(t => t.TagId);
+
+            //Property
+
+            //Data
+            modelBuilder.Entity<Tag>().HasData(
+                new Tag { TagId = 1, TagName = "Action" },
+                new Tag { TagId = 2, TagName = "Action-adventure" },
+                new Tag { TagId = 3, TagName = "Adventure" },
+                new Tag { TagId = 4, TagName = "Role-playing" },
+                new Tag { TagId = 5, TagName = "Simulation" },
+                new Tag { TagId = 6, TagName = "Strategy" },
+                new Tag { TagId = 7, TagName = "Sports" },
+                new Tag { TagId = 8, TagName = "MMO" },
+                new Tag { TagId = 9, TagName = "Sandbox" },
+                new Tag { TagId = 10, TagName = "Open world" }
+                );
             #endregion
 
             #region User table
@@ -130,8 +169,9 @@ namespace EShop.Repository.Domain
         public DbSet<OrderProduct> OrderProducts { get; set; }
         public DbSet<PriceOffer> PriceOffers { get; set; }
         public DbSet<Product> Products { get; set; }
-        public DbSet<ShoppingCartProduct> ShoppingCartProducts { get; set; }
         public DbSet<ShoppingCart> ShoppingCarts { get; set; }
+        public DbSet<ShoppingCartProduct> ShoppingCartProducts { get; set; }
+        public DbSet<Tag> Tags { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<UserInformation> UserInformations { get; set; }
         #endregion

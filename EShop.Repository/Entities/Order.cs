@@ -8,10 +8,8 @@ namespace EShop.Repository.Entities
     {
         [Required]
         public int OrderId { get; set; }
-
         [Required]
         public DateTime OrderDate { get; set; }
-
         [Required]
         public double TotalOrderPrice { get; set; }
 

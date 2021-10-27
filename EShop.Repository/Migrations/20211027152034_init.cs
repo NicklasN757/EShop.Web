@@ -16,7 +16,7 @@ namespace EShop.Repository.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Price = table.Column<double>(type: "float", nullable: false),
-                    ImgUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ImgUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     InStock = table.Column<bool>(type: "bit", nullable: false, defaultValue: true),
                     TotalStock = table.Column<int>(type: "int", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false)
@@ -24,6 +24,19 @@ namespace EShop.Repository.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Products", x => x.ProductId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Tags",
+                columns: table => new
+                {
+                    TagId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TagName = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Tags", x => x.TagId);
                 });
 
             migrationBuilder.CreateTable(
@@ -59,6 +72,32 @@ namespace EShop.Repository.Migrations
                         column: x => x.ProductId,
                         principalTable: "Products",
                         principalColumn: "ProductId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ProductTag",
+                columns: table => new
+                {
+                    ProductTagId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FK_Product = table.Column<int>(type: "int", nullable: false),
+                    FK_Tag = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProductTag", x => x.ProductTagId);
+                    table.ForeignKey(
+                        name: "FK_ProductTag_Products_FK_Product",
+                        column: x => x.FK_Product,
+                        principalTable: "Products",
+                        principalColumn: "ProductId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ProductTag_Tags_FK_Tag",
+                        column: x => x.FK_Tag,
+                        principalTable: "Tags",
+                        principalColumn: "TagId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -136,18 +175,11 @@ namespace EShop.Repository.Migrations
                     OrderDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GetDate()"),
                     TotalOrderPrice = table.Column<double>(type: "float", nullable: false, defaultValue: 0.0),
                     FK_UserInformationId = table.Column<int>(type: "int", nullable: false),
-                    FK_UserId = table.Column<int>(type: "int", nullable: false),
-                    ProductId = table.Column<int>(type: "int", nullable: true)
+                    FK_UserId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Orders", x => x.OrderId);
-                    table.ForeignKey(
-                        name: "FK_Orders_Products_ProductId",
-                        column: x => x.ProductId,
-                        principalTable: "Products",
-                        principalColumn: "ProductId",
-                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Orders_UserInformations_FK_UserInformationId",
                         column: x => x.FK_UserInformationId,
@@ -199,6 +231,28 @@ namespace EShop.Repository.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "Tags",
+                columns: new[] { "TagId", "TagName" },
+                values: new object[,]
+                {
+                    { 10, "Open world" },
+                    { 9, "Sandbox" },
+                    { 8, "MMO" },
+                    { 7, "Sports" },
+                    { 6, "Strategy" },
+                    { 4, "Role-playing" },
+                    { 3, "Adventure" },
+                    { 2, "Action-adventure" },
+                    { 1, "Action" },
+                    { 5, "Simulation" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Users",
+                columns: new[] { "UserId", "Pin", "Username" },
+                values: new object[] { 2, 4242, "PinkMan42" });
+
+            migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "UserId", "IsAdmin", "Pin", "Username" },
                 values: new object[] { 1, true, 7571, "NicklasN757" });
@@ -206,16 +260,25 @@ namespace EShop.Repository.Migrations
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "UserId", "Pin", "Username" },
-                values: new object[,]
-                {
-                    { 2, 4242, "PinkMan42" },
-                    { 3, 1234, "YoloSwagMC" }
-                });
+                values: new object[] { 3, 1234, "YoloSwagMC" });
 
             migrationBuilder.InsertData(
                 table: "PriceOffers",
                 columns: new[] { "ProductId", "DateEnding", "DateStarted", "NewPrice", "OfferReason" },
-                values: new object[] { 3, new DateTime(2022, 10, 20, 23, 22, 33, 201, DateTimeKind.Local).AddTicks(4220), new DateTime(2021, 10, 20, 23, 22, 33, 199, DateTimeKind.Local).AddTicks(6939), 24.550000000000001, "Too many bugs ingame" });
+                values: new object[] { 3, new DateTime(2022, 10, 27, 17, 20, 33, 833, DateTimeKind.Local).AddTicks(5710), new DateTime(2021, 10, 27, 17, 20, 33, 831, DateTimeKind.Local).AddTicks(8155), 24.550000000000001, "Too many bugs ingame" });
+
+            migrationBuilder.InsertData(
+                table: "ProductTag",
+                columns: new[] { "ProductTagId", "FK_Product", "FK_Tag" },
+                values: new object[,]
+                {
+                    { 6, 5, 1 },
+                    { 1, 1, 2 },
+                    { 5, 4, 2 },
+                    { 2, 2, 9 },
+                    { 3, 2, 10 },
+                    { 4, 3, 10 }
+                });
 
             migrationBuilder.InsertData(
                 table: "ShoppingCarts",
@@ -258,9 +321,14 @@ namespace EShop.Repository.Migrations
                 column: "FK_UserInformationId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Orders_ProductId",
-                table: "Orders",
-                column: "ProductId");
+                name: "IX_ProductTag_FK_Product",
+                table: "ProductTag",
+                column: "FK_Product");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProductTag_FK_Tag",
+                table: "ProductTag",
+                column: "FK_Tag");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ShoppingCartProducts_FK_Product",
@@ -282,16 +350,22 @@ namespace EShop.Repository.Migrations
                 name: "PriceOffers");
 
             migrationBuilder.DropTable(
+                name: "ProductTag");
+
+            migrationBuilder.DropTable(
                 name: "ShoppingCartProducts");
 
             migrationBuilder.DropTable(
                 name: "Orders");
 
             migrationBuilder.DropTable(
-                name: "ShoppingCarts");
+                name: "Tags");
 
             migrationBuilder.DropTable(
                 name: "Products");
+
+            migrationBuilder.DropTable(
+                name: "ShoppingCarts");
 
             migrationBuilder.DropTable(
                 name: "UserInformations");

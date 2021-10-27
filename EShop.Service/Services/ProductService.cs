@@ -40,11 +40,11 @@ namespace EShop.Service.Services
         }
 
         //Calls and logs the "GetProductByIdWithPriceOffer" funtion from the ProductRepository
-        public async Task<ProductDTO> GetProductByIdWithPriceOffer(int id)
+        public async Task<ProductDTO> GetProductByIdWithAll(int id)
         {
             try
             {
-                ProductDTO productDTO = _mappingService._mapper.Map<ProductDTO>(await _productRepository.GetProductByIdWithPriceOffer(id));
+                ProductDTO productDTO = _mappingService._mapper.Map<ProductDTO>(await _productRepository.GetProductByIdWithAll(id));
 
                 LogInformation($"Successfully retrieved a Product and its PriceOffer with the giving id - Id: {id}.");
 
