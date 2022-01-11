@@ -32,7 +32,7 @@ namespace EShop.Web.Pages
                 AppUser = await _userService.GetByIdAsync(tmpId);
             }
 
-            Product = await _productService.GetProductByIdWithPriceOffer(ProductId);
+            Product = await _productService.GetProductByIdWithAll(ProductId);
 
             return Page();
         }

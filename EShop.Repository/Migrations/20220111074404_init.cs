@@ -1,6 +1,8 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
+#nullable disable
+
 namespace EShop.Repository.Migrations
 {
     public partial class init : Migration
@@ -235,22 +237,17 @@ namespace EShop.Repository.Migrations
                 columns: new[] { "TagId", "TagName" },
                 values: new object[,]
                 {
-                    { 10, "Open world" },
-                    { 9, "Sandbox" },
-                    { 8, "MMO" },
-                    { 7, "Sports" },
-                    { 6, "Strategy" },
-                    { 4, "Role-playing" },
-                    { 3, "Adventure" },
-                    { 2, "Action-adventure" },
                     { 1, "Action" },
-                    { 5, "Simulation" }
+                    { 2, "Action-adventure" },
+                    { 3, "Adventure" },
+                    { 4, "Role-playing" },
+                    { 5, "Simulation" },
+                    { 6, "Strategy" },
+                    { 7, "Sports" },
+                    { 8, "MMO" },
+                    { 9, "Sandbox" },
+                    { 10, "Open world" }
                 });
-
-            migrationBuilder.InsertData(
-                table: "Users",
-                columns: new[] { "UserId", "Pin", "Username" },
-                values: new object[] { 2, 4242, "PinkMan42" });
 
             migrationBuilder.InsertData(
                 table: "Users",
@@ -260,24 +257,28 @@ namespace EShop.Repository.Migrations
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "UserId", "Pin", "Username" },
-                values: new object[] { 3, 1234, "YoloSwagMC" });
+                values: new object[,]
+                {
+                    { 2, 4242, "PinkMan42" },
+                    { 3, 1234, "YoloSwagMC" }
+                });
 
             migrationBuilder.InsertData(
                 table: "PriceOffers",
                 columns: new[] { "ProductId", "DateEnding", "DateStarted", "NewPrice", "OfferReason" },
-                values: new object[] { 3, new DateTime(2022, 10, 27, 17, 20, 33, 833, DateTimeKind.Local).AddTicks(5710), new DateTime(2021, 10, 27, 17, 20, 33, 831, DateTimeKind.Local).AddTicks(8155), 24.550000000000001, "Too many bugs ingame" });
+                values: new object[] { 3, new DateTime(2023, 1, 11, 8, 44, 3, 897, DateTimeKind.Local).AddTicks(3006), new DateTime(2022, 1, 11, 8, 44, 3, 897, DateTimeKind.Local).AddTicks(2967), 24.550000000000001, "Too many bugs ingame" });
 
             migrationBuilder.InsertData(
                 table: "ProductTag",
                 columns: new[] { "ProductTagId", "FK_Product", "FK_Tag" },
                 values: new object[,]
                 {
-                    { 6, 5, 1 },
                     { 1, 1, 2 },
-                    { 5, 4, 2 },
                     { 2, 2, 9 },
                     { 3, 2, 10 },
-                    { 4, 3, 10 }
+                    { 4, 3, 10 },
+                    { 5, 4, 2 },
+                    { 6, 5, 1 }
                 });
 
             migrationBuilder.InsertData(

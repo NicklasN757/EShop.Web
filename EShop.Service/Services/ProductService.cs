@@ -39,7 +39,7 @@ namespace EShop.Service.Services
             }
         }
 
-        //Calls and logs the "GetProductByIdWithPriceOffer" funtion from the ProductRepository
+        //Calls and logs the "GetProductByIdWithAll" funtion from the ProductRepository
         public async Task<ProductDTO> GetProductByIdWithAll(int id)
         {
             try
@@ -58,7 +58,7 @@ namespace EShop.Service.Services
             }
         }
 
-        //Calls and logs the "GetProductByIdWithPriceOffer" funtion from the ProductRepository
+        //Calls and logs the "SoftDeleteProduct" funtion from the ProductRepository
         public async Task SoftDeleteProduct(int productId)
         {
             try

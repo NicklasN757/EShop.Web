@@ -7,26 +7,30 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
+#nullable disable
+
 namespace EShop.Repository.Migrations
 {
     [DbContext(typeof(EShopContext))]
-    [Migration("20211027152034_init")]
+    [Migration("20220111074404_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.10")
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("ProductVersion", "6.0.1")
+                .HasAnnotation("Relational:MaxIdentifierLength", 128);
+
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
             modelBuilder.Entity("EShop.Repository.Entities.Order", b =>
                 {
                     b.Property<int>("OrderId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderId"), 1L, 1);
 
                     b.Property<int>("FK_UserId")
                         .HasColumnType("int");
@@ -57,8 +61,9 @@ namespace EShop.Repository.Migrations
                 {
                     b.Property<int>("OrderProductId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderProductId"), 1L, 1);
 
                     b.Property<int>("FK_Order")
                         .HasColumnType("int");
@@ -103,8 +108,8 @@ namespace EShop.Repository.Migrations
                         new
                         {
                             ProductId = 3,
-                            DateEnding = new DateTime(2022, 10, 27, 17, 20, 33, 833, DateTimeKind.Local).AddTicks(5710),
-                            DateStarted = new DateTime(2021, 10, 27, 17, 20, 33, 831, DateTimeKind.Local).AddTicks(8155),
+                            DateEnding = new DateTime(2023, 1, 11, 8, 44, 3, 897, DateTimeKind.Local).AddTicks(3006),
+                            DateStarted = new DateTime(2022, 1, 11, 8, 44, 3, 897, DateTimeKind.Local).AddTicks(2967),
                             NewPrice = 24.550000000000001,
                             OfferReason = "Too many bugs ingame"
                         });
@@ -114,8 +119,9 @@ namespace EShop.Repository.Migrations
                 {
                     b.Property<int>("ProductId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProductId"), 1L, 1);
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -210,8 +216,9 @@ namespace EShop.Repository.Migrations
                 {
                     b.Property<int>("ProductTagId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProductTagId"), 1L, 1);
 
                     b.Property<int>("FK_Product")
                         .HasColumnType("int");
@@ -302,8 +309,9 @@ namespace EShop.Repository.Migrations
                 {
                     b.Property<int>("ShoppingCartProductId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ShoppingCartProductId"), 1L, 1);
 
                     b.Property<int>("FK_Product")
                         .HasColumnType("int");
@@ -324,8 +332,9 @@ namespace EShop.Repository.Migrations
                 {
                     b.Property<int>("TagId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TagId"), 1L, 1);
 
                     b.Property<string>("TagName")
                         .IsRequired()
@@ -392,8 +401,9 @@ namespace EShop.Repository.Migrations
                 {
                     b.Property<int>("UserId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserId"), 1L, 1);
 
                     b.Property<bool>("IsAdmin")
                         .ValueGeneratedOnAdd()

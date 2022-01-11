@@ -36,7 +36,7 @@ namespace EShop.Web.Pages.Product
                     return RedirectToPage("../Product/ProductDetails");
                 }
 
-                Product = await _productService.GetProductByIdWithPriceOffer(ProductId);
+                Product = await _productService.GetProductByIdWithAll(ProductId);
 
             }
 
@@ -46,7 +46,7 @@ namespace EShop.Web.Pages.Product
         //Updates the product
         public async Task<IActionResult> OnPostUpdateProduct(int ProductId)
         {
-            ProductDTO productDTO = await _productService.GetProductByIdWithPriceOffer(ProductId);
+            ProductDTO productDTO = await _productService.GetProductByIdWithAll(ProductId);
             productDTO.Name = Product.Name;
             productDTO.Description = Product.Description;
             productDTO.Price = Product.Price;
